@@ -1,0 +1,45 @@
+default_language_version:
+    python: python3.12
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: fix-encoding-pragma
+        args: ['--remove']
+      - id: end-of-file-fixer
+      - id: check-ast
+      - id: trailing-whitespace
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: detect-private-key
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.2
+    hooks:
+      - id: ruff-format
+      - id: ruff
+        args: [
+            "--fix",
+            "--exit-non-zero-on-fix",
+            "--ignore=BLE001,EM102,FBT001,FBT002,E501,F841,S112,S113,B904"
+        ]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.16.1
+    hooks:
+      - id: mypy
+        # use 'mypy "$@" || true' to ignore exit code
+        entry: bash -c 'mypy "$@"' --
+        args: [ "--no-strict-optional", "--ignore-missing-imports" ]
+
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.22
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm  # GitHub-Flavored Markdown support
+          - mdformat-tables  # Improved tables support
+          - mdformat-simple-breaks # Better handling of line breaks
