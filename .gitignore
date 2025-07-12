@@ -9,8 +9,5 @@ wheels/
 # Virtual environments
 .venv
 
-# OpenAPI spec files
-*.json
-
 # Exclude mcp.json files
 mcp.json
