@@ -35,6 +35,7 @@ class XrayClient:
         client = httpx.AsyncClient(
             base_url=config.url,
             headers=headers,
+            timeout=httpx.Timeout(config.timeout),
         )
         return cls(client)
 

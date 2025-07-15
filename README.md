@@ -50,8 +50,10 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
 
 1. **Get the Xray OpenAPI spec**
 
-   - Download the OpenAPI (Swagger) spec for your Xray version from your Xray server or the official documentation.
-   - Save it locally, e.g., `/path/to/xray_openapi.json`.
+   - The OpenAPI (Swagger) spec for the relevant Xray version can be provided as either a local file path or a direct URL.
+   - The spec may be downloaded from an Xray server, obtained from the official documentation, or referenced via a direct URL if available.
+   - Example local file: `/path/to/xray_openapi.json`
+   - Example URL: `https://docs.getxray.app/download/attachments/62267123/xray_7.12_api_doc.json?api=v2`
 
 1. **Configure and run in VS Code**
 
@@ -86,8 +88,8 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
          }
      }
      ```
-   - Adjust the `--xray-url` and `--xray-openapi-spec` as needed for your environment.
-   - The token will be prompted interactively and not stored in plain text.
+   - Adjust the `--xray-url` and `--xray-openapi-spec` as needed for the environment. The `--xray-openapi-spec` option accepts either a local file path or a URL.
+   - The Xray personal access token will be prompted interactively and not stored in plain text.
 
 ## OpenAPI Schema: Source, Limitations, and Maintenance
 

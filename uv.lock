@@ -391,6 +391,7 @@ dependencies = [
     { name = "click" },
     { name = "fastmcp" },
     { name = "httpx" },
+    { name = "pydantic-settings" },
     { name = "starlette" },
 ]
 
@@ -406,6 +407,7 @@ requires-dist = [
     { name = "click", specifier = ">=8.2.1" },
     { name = "fastmcp", specifier = ">=2.10.4" },
     { name = "httpx", specifier = ">=0.28.1" },
+    { name = "pydantic-settings", specifier = ">=2.10.1" },
     { name = "starlette", specifier = ">=0.47.1" },
 ]
 

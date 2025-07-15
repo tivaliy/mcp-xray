@@ -1,4 +1,4 @@
 from .client import XrayClient
-from .config import XrayConfig
+from .config import get_xray_config
 
-__all__ = ["XrayClient", "XrayConfig"]
+__all__ = ["XrayClient", "get_xray_config"]

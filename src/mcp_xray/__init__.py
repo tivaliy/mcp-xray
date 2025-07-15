@@ -66,9 +66,9 @@ logger = setup_logging(logging_level, logging_stream)
 )
 @click.option(
     "--xray-openapi-spec",
-    type=click.Path(exists=True, dir_okay=False, readable=True),
+    type=str,
     required=True,
-    help="Path to the OpenAPI spec file for Xray API",
+    help="Path or URL to the OpenAPI spec file for Xray API",
 )
 def main(
     verbose: int,

@@ -1,14 +1,14 @@
 from fastmcp import FastMCP
 
 from .utils.spec import load_openapi_spec
-from .xray import XrayClient, XrayConfig
+from .xray import XrayClient, get_xray_config
 
 
 def create_mcp() -> FastMCP:
     """Create a FastMCP app"""
 
     # Initialize the Xray configuration
-    xray_config = XrayConfig.from_env()
+    xray_config = get_xray_config()
 
     # Initialize the Xray client
     xray_client = XrayClient.from_config(xray_config)

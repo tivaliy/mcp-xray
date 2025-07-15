@@ -1,12 +1,15 @@
-import os
-import pathlib
-from dataclasses import dataclass
-from typing import Literal
-from urllib.parse import urlparse
+from functools import lru_cache
+from typing import Annotated, Literal
+
+from pydantic import BeforeValidator, Field, HttpUrl, TypeAdapter
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# Create a custom URL type that validates as HttpUrl but stores as str
+http_url_adapter = TypeAdapter(HttpUrl)
+Url = Annotated[str, BeforeValidator(lambda value: str(http_url_adapter.validate_python(value)))]
 
 
-@dataclass(frozen=True)
-class XrayConfig:
+class XrayConfig(BaseSettings):
     """Xray API configuration.
 
     This class handles the configuration for connecting to the Xray API.
@@ -20,76 +23,33 @@ class XrayConfig:
     """
 
     # Base URL for the Xray API
-    url: str
+    url: Url = Field(..., description="Base URL for the Xray API")
     # Authentication type, only "pat" (Personal Access Token) is supported currently
-    auth_type: Literal["pat"]
+    auth_type: Literal["pat"] = "pat"
     # Personal Access Token for Xray Server/Data Center
-    personal_token: str
-    # OpenAPI spec file path
-    openapi_spec: str
+    personal_token: str = Field(..., description="Personal Access Token for Xray API")
+    # OpenAPI spec file path or URL
+    openapi_spec: str = Field(
+        ..., description="Path to the OpenAPI specification file: URL or local path"
+    )
+    # Xray client configuration
+    timeout: float = 20.0
 
-    def __post_init__(self) -> None:
-        """Validate configuration values after initialization."""
-        object.__setattr__(self, "url", self.url.rstrip("/"))
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_prefix="XRAY_",
+        frozen=True,
+    )
 
-        # Validate URL format
-        parsed_url = urlparse(self.url)
-        if not all([parsed_url.scheme, parsed_url.netloc]):
-            msg = f"Invalid URL format: {self.url}"
-            raise ValueError(msg)
 
-    @classmethod
-    def from_env(cls) -> "XrayConfig":
-        """Create an XrayConfig instance from environment variables.
+@lru_cache
+def get_xray_config() -> XrayConfig:
+    """Get the Xray configuration settings.
 
-        Returns:
-            An instance of XrayConfig
+    This function caches the settings to avoid reloading them multiple times.
+    It uses environment variables prefixed with XRAY_ to populate the configuration.
 
-        Raises:
-            ValueError: If any required environment variable is missing
-        """
-        url = os.getenv("XRAY_URL")
-        if not url:
-            msg = "XRAY_URL environment variable is required."
-            raise ValueError(msg)
-
-        personal_token = os.getenv("XRAY_PERSONAL_TOKEN")
-        if not personal_token:
-            msg = "XRAY_PERSONAL_TOKEN environment variable is required."
-            raise ValueError(msg)
-
-        openapi_spec = os.getenv("XRAY_OPENAPI_SPEC")
-        if not openapi_spec:
-            msg = "XRAY_OPENAPI_SPEC environment variable is required."
-            raise ValueError(msg)
-
-        return cls(
-            url=url,
-            auth_type="pat",
-            personal_token=personal_token,
-            openapi_spec=openapi_spec,
-        )
-
-    def is_spec_file(self) -> bool:
-        """Check if the OpenAPI spec is a file path.
-
-        Returns:
-            True if the spec is a file path, False if it's a URL
-        """
-        parsed = urlparse(self.openapi_spec)
-        return not parsed.scheme or parsed.scheme == "file"
-
-    def get_spec_path(self) -> pathlib.Path:
-        """Get the OpenAPI spec as a Path object if it's a file.
-
-        Returns:
-            Path object representing the spec file
-
-        Raises:
-            ValueError: If the spec is not a file path
-        """
-        if not self.is_spec_file():
-            msg = f"The OpenAPI spec is not a file path: {self.openapi_spec}"
-            raise ValueError(msg)
-
-        return pathlib.Path(self.openapi_spec)
+    Returns:
+        An instance of XrayConfig with the loaded settings.
+    """
+    return XrayConfig()  # type: ignore[call-arg]

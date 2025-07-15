@@ -6,6 +6,9 @@ dist/
 wheels/
 *.egg-info
 
+# Exclude .idea files
+.idea/
+
 # Virtual environments
 .venv
 
