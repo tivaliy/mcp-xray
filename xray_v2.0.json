@@ -8,11 +8,11 @@
   },
   "servers": [
     {
-      "url": "https://your-jira-instance.example.com"
+      "url": "https://your-jira-instance.example.com/rest/raven/2.0/api"
     }
   ],
   "paths": {
-    "/rest/raven/2.0/api/test/{testKey}/steps": {
+    "/test/{testKey}/steps": {
       "get": {
         "tags": [
           "test step"
@@ -141,7 +141,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/test/{testKey}/steps/{stepId}": {
+    "/test/{testKey}/steps/{stepId}": {
       "get": {
         "tags": ["test step"],
         "summary": "Get test step",
@@ -231,7 +231,7 @@
         {"name": "stepId", "in": "path", "required": true, "description": "The unique identifier of the test step", "schema": {"type": "string", "example": "67890"}}
       ]
     },
-    "/rest/raven/2.0/api/test/{testKey}/steps/{stepId}/attachments": {
+    "/test/{testKey}/steps/{stepId}/attachments": {
       "get": {
         "tags": [
           "test step"
@@ -268,7 +268,7 @@
           }
         ]
     },
-    "/rest/raven/2.0/api/test/{testKey}/steps/{stepId}/attachment/{attachmentId}": {
+    "/test/{testKey}/steps/{stepId}/attachment/{attachmentId}": {
       "delete": {
         "tags": [
           "test step"
@@ -326,7 +326,7 @@
           }
         ]
     },
-    "/rest/raven/2.0/api/test": {
+    "/test": {
       "get": {
         "tags": [
           "test"
@@ -351,7 +351,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/test/{testKey}/testruns": {
+    "/test/{testKey}/testruns": {
       "get": {
         "tags": [
           "test"
@@ -378,7 +378,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/test/{testKey}/testexecutions": {
+    "/test/{testKey}/testexecutions": {
       "get": {
         "tags": [
           "test"
@@ -405,7 +405,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/precondition/{preconditionKey}/test": {
+    "/precondition/{preconditionKey}/test": {
       "get": {
         "tags": [
           "precondition"
@@ -482,7 +482,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/test/{testKey}/preconditions": {
+    "/test/{testKey}/preconditions": {
       "get": {
         "tags": [
           "test"
@@ -509,7 +509,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testset/{testSetKey}/test": {
+    "/testset/{testSetKey}/test": {
       "get": {
         "tags": [
           "test set"
@@ -586,7 +586,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/test/{testKey}/testsets": {
+    "/test/{testKey}/testsets": {
       "get": {
         "tags": [
           "test"
@@ -613,7 +613,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testexec/{testExecutionKey}/test": {
+    "/testexec/{testExecutionKey}/test": {
       "get": {
         "tags": [
           "test execution"
@@ -690,7 +690,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun": {
+    "/testrun": {
       "get": {
         "tags": [
           "test run"
@@ -725,7 +725,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}": {
+    "/testrun/{testRunId}": {
       "get": {
         "tags": [
           "test run"
@@ -792,7 +792,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/status": {
+    "/testrun/{testRunId}/status": {
       "get": {
         "tags": [
           "test run"
@@ -842,7 +842,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/defect": {
+    "/testrun/{testRunId}/defect": {
       "get": {
         "tags": [
           "test run"
@@ -937,7 +937,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/defect/{defectKey}": {
+    "/testrun/{testRunId}/defect/{defectKey}": {
       "delete": {
         "tags": [
           "test run"
@@ -1006,7 +1006,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/attachment": {
+    "/testrun/{testRunId}/attachment": {
       "get": {
         "tags": [
           "test run"
@@ -1134,7 +1134,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/attachment/{attachmentId}": {
+    "/testrun/{testRunId}/attachment/{attachmentId}": {
       "delete": {
         "tags": [
           "test run"
@@ -1203,7 +1203,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/comment": {
+    "/testrun/{testRunId}/comment": {
       "get": {
         "tags": [
           "test run"
@@ -1254,7 +1254,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/assignee": {
+    "/testrun/{testRunId}/assignee": {
       "get": {
         "tags": [
           "test run"
@@ -1281,7 +1281,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/step": {
+    "/testrun/{testRunId}/step": {
       "get": {
         "tags": [
           "test run"
@@ -1308,7 +1308,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/step/{stepResultId}": {
+    "/testrun/{testRunId}/step/{stepResultId}": {
       "get": {
         "tags": [
           "test run"
@@ -1429,7 +1429,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/step/{stepResultId}/status": {
+    "/testrun/{testRunId}/step/{stepResultId}/status": {
       "get": {
         "tags": [
           "test run"
@@ -1489,7 +1489,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/step/{stepResultId}/attachment": {
+    "/testrun/{testRunId}/step/{stepResultId}/attachment": {
       "get": {
         "tags": [
           "test run"
@@ -1606,7 +1606,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/step/{stepResultId}/attachment/{stepAttachmentId}": {
+    "/testrun/{testRunId}/step/{stepResultId}/attachment/{stepAttachmentId}": {
       "delete": {
         "tags": [
           "test run"
@@ -1664,7 +1664,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/example/{exampleIndex}": {
+    "/testrun/{testRunId}/example/{exampleIndex}": {
       "get": {
         "tags": [
           "test run"
@@ -1724,7 +1724,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/customfield/{customFieldId}": {
+    "/testrun/{testRunId}/customfield/{customFieldId}": {
       "get": {
         "tags": [
           "test run"
@@ -1796,7 +1796,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testplan/{testPlanKey}/test": {
+    "/testplan/{testPlanKey}/test": {
       "get": {
         "tags": [
           "test plan"
@@ -1873,7 +1873,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/test/{testKey}/testplans": {
+    "/test/{testKey}/testplans": {
       "get": {
         "tags": [
           "test"
@@ -1900,7 +1900,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrepository/{projectKey}/folders": {
+    "/testrepository/{projectKey}/folders": {
       "get": {
         "tags": [
           "test repository"
@@ -1927,7 +1927,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrepository/{projectKey}/folders/{folderId}": {
+    "/testrepository/{projectKey}/folders/{folderId}": {
       "get": {
         "tags": [
           "test repository"
@@ -1999,7 +1999,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrepository/{projectKey}/folders/{updateFolderId}": {
+    "/testrepository/{projectKey}/folders/{updateFolderId}": {
       "put": {
         "tags": [
           "test repository"
@@ -2093,7 +2093,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrepository/{projectKey}/folders/{testFolderId}/tests": {
+    "/testrepository/{projectKey}/folders/{testFolderId}/tests": {
       "get": {
         "tags": [
           "test repository"
@@ -2130,7 +2130,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrepository/{projectKey}/folders/{manageFolderId}/tests": {
+    "/testrepository/{projectKey}/folders/{manageFolderId}/tests": {
       "put": {
         "tags": [
           "test repository"
@@ -2204,7 +2204,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/import/execution": {
+    "/import/execution": {
       "post": {
         "tags": [
           "import"
@@ -2337,7 +2337,7 @@
         }
       }
     },
-    "/rest/raven/2.0/import/execution/cucumber": {
+    "/import/execution/cucumber": {
       "post": {
         "tags": [
           "import"
@@ -4046,7 +4046,7 @@
         }
       }
     },
-    "/rest/raven/2.0/import/execution/behave": {
+    "/import/execution/behave": {
       "post": {
         "tags": [
           "import"
@@ -4848,7 +4848,7 @@
         }
       }
     },
-    "/rest/raven/2.0/import/execution/junit": {
+    "/import/execution/junit": {
       "post": {
         "tags": [
           "import"
@@ -4888,7 +4888,7 @@
         }
       }
     },
-    "/rest/raven/2.0/import/execution/testng": {
+    "/import/execution/testng": {
       "post": {
         "tags": [
           "import"
@@ -4928,7 +4928,7 @@
         }
       }
     },
-    "/rest/raven/2.0/import/execution/nunit": {
+    "/import/execution/nunit": {
       "post": {
         "tags": [
           "import"
@@ -4968,7 +4968,7 @@
         }
       }
     },
-    "/rest/raven/2.0/import/execution/robot": {
+    "/import/execution/robot": {
       "post": {
         "tags": [
           "import"
@@ -5008,7 +5008,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/testruns": {
+    "/testruns": {
       "get": {
         "tags": [
           "test run"
@@ -5118,7 +5118,7 @@
         }
       }
     },
-    "/rest/raven/2.0/import/feature": {
+    "/import/feature": {
       "post": {
         "tags": [
           "import"
@@ -5158,7 +5158,7 @@
         }
       }
     },
-    "/rest/raven/2.0/export/test": {
+    "/export/test": {
       "get": {
         "tags": [
           "export"
@@ -5191,7 +5191,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/project/{projectId}/settings/customfields/teststeps": {
+    "/project/{projectId}/settings/customfields/teststeps": {
       "get": {
         "tags": [
           "settings"
@@ -5218,7 +5218,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/project/{projectId}/settings/customfields/testruns": {
+    "/project/{projectId}/settings/customfields/testruns": {
       "get": {
         "tags": [
           "settings"
@@ -5245,7 +5245,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/settings/teststepstatuses": {
+    "/settings/teststepstatuses": {
       "get": {
         "tags": [
           "settings"
@@ -5260,7 +5260,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/settings/teststatuses": {
+    "/settings/teststatuses": {
       "get": {
         "tags": [
           "settings"
@@ -5275,7 +5275,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/iteration": {
+    "/testrun/{testRunId}/iteration": {
       "get": {
         "tags": [
           "test run"
@@ -5341,7 +5341,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/iteration/{iterationId}": {
+    "/testrun/{testRunId}/iteration/{iterationId}": {
       "get": {
         "tags": [
           "test run"
@@ -5456,7 +5456,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testrun/{testRunId}/iteration/{iterationId}/step/{stepId}": {
+    "/testrun/{testRunId}/iteration/{iterationId}/step/{stepId}": {
       "get": {
         "tags": [
           "test run"
@@ -5560,7 +5560,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/dataset/export": {
+    "/dataset/export": {
       "get": {
         "tags": [
           "dataset"
@@ -5606,7 +5606,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/dataset/import": {
+    "/dataset/import": {
       "post": {
         "tags": [
           "dataset"
@@ -5705,7 +5705,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/testrunstatus/reset": {
+    "/testrunstatus/reset": {
       "put": {
         "tags": [
           "test run"
@@ -5760,7 +5760,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/requirementstatus/reset": {
+    "/requirementstatus/reset": {
       "put": {
         "tags": [
           "requirements"
@@ -5805,7 +5805,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/test/{testKey}/version": {
+    "/test/{testKey}/version": {
       "get": {
         "tags": [
           "test"
@@ -5832,7 +5832,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testexecution/{testExecutionKey}/testrun/bulk": {
+    "/testexecution/{testExecutionKey}/testrun/bulk": {
       "post": {
         "tags": [
           "test execution"
@@ -5893,7 +5893,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/license": {
+    "/license": {
       "get": {
         "tags": [
           "license"
@@ -5908,7 +5908,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/settings/global": {
+    "/settings/global": {
       "get": {
         "tags": [
           "settings"
@@ -5959,7 +5959,7 @@
         }
       }
     },
-    "/rest/raven/2.0/api/settings/project/{projectKey}": {
+    "/settings/project/{projectKey}": {
       "get": {
         "tags": [
           "settings"
@@ -6032,7 +6032,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/issuetypes/project/{projectKey}": {
+    "/issuetypes/project/{projectKey}": {
       "get": {
         "tags": [
           "issue types"
@@ -6059,7 +6059,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testexecution/{testExecutionKey}/environment": {
+    "/testexecution/{testExecutionKey}/environment": {
       "get": {
         "tags": [
           "test execution"
@@ -6119,7 +6119,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/testplan/{testPlanKey}/environment": {
+    "/testplan/{testPlanKey}/environment": {
       "get": {
         "tags": [
           "test plan"
@@ -6188,7 +6188,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/export/testplan/{testPlanKey}": {
+    "/export/testplan/{testPlanKey}": {
       "get": {
         "tags": [
           "export"
@@ -6238,7 +6238,7 @@
         }
       ]
     },
-    "/rest/raven/2.0/api/export/testexecution/{testExecutionKey}": {
+    "/export/testexecution/{testExecutionKey}": {
       "get": {
         "tags": [
           "export"
