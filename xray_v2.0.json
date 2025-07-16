@@ -332,7 +332,7 @@
           "test"
         ],
         "summary": "List tests",
-        "description": "List tests",
+        "description": "Retrieves detailed information about one or more test issues. When keys parameter is provided, returns specific tests; otherwise returns all tests accessible to the user. The response includes test fields, steps, preconditions, and associated metadata.",
         "operationId": "listTests",
         "parameters": [
           {
@@ -357,7 +357,7 @@
           "test"
         ],
         "summary": "List test runs for test",
-        "description": "List test runs for the specified test",
+        "description": "Retrieves all test runs associated with a specific test issue. Returns a collection of test runs including execution status, timestamps, assignees, and execution results for the specified test.",
         "operationId": "listTestRunsForTest",
         "responses": {
           "200": {
@@ -384,7 +384,7 @@
           "test"
         ],
         "summary": "List test executions",
-        "description": "List test executions",
+        "description": "Retrieves all test execution issues that include the specified test. Returns a collection of test executions with their execution details, associated test runs, and execution metadata.",
         "operationId": "listTestExecutions",
         "responses": {
           "200": {
@@ -411,7 +411,7 @@
           "precondition"
         ],
         "summary": "List precondition tests",
-        "description": "List tests associated to precondition",
+        "description": "Retrieves all test issues associated with a specific precondition. Returns a list of tests that are linked to the precondition, including test details and association metadata.",
         "operationId": "listPreconditionTests",
         "responses": {
           "200": {
@@ -424,7 +424,7 @@
           "precondition"
         ],
         "summary": "Update precondition tests",
-        "description": "associate test to a precondition",
+        "description": "Associates or disassociates test issues with a precondition. Supports adding new test associations or removing existing ones through the 'add' and 'remove' operations.",
         "operationId": "associateTestToPrecondition",
         "requestBody": {
           "content": {
@@ -488,7 +488,7 @@
           "test"
         ],
         "summary": "List test preconditions",
-        "description": "List test preconditions for the specified test.",
+        "description": "Retrieves all precondition issues associated with a specific test. Returns a list of preconditions that are linked to the test, providing traceability between tests and their prerequisites.",
         "operationId": "listTestPreconditions",
         "responses": {
           "200": {
@@ -515,7 +515,7 @@
           "test set"
         ],
         "summary": "List test set tests",
-        "description": "get tests associated to test set",
+        "description": "Retrieves all test issues associated with a specific test set. Returns a comprehensive list of tests that belong to the test set, including test details and organizational metadata.",
         "operationId": "listTestSetTests",
         "responses": {
           "200": {
@@ -528,7 +528,7 @@
           "test set"
         ],
         "summary": "Update test set tests",
-        "description": "associate test to test set",
+        "description": "Associates or disassociates test issues with a test set. Supports adding new test associations or removing existing ones to manage test set composition and organization.",
         "operationId": "associateTestToTestSet",
         "requestBody": {
           "content": {
@@ -592,7 +592,7 @@
           "test"
         ],
         "summary": "List test sets",
-        "description": "List test sets for the specified test.",
+        "description": "Retrieves all test set issues that include the specified test. Returns a list of test sets where the test is a member, providing visibility into test organization and grouping.",
         "operationId": "listTestTestSets",
         "responses": {
           "200": {
@@ -619,11 +619,11 @@
           "test execution"
         ],
         "summary": "List test execution tests",
-        "description": "get tests associated to test execution",
+        "description": "Retrieves all test issues associated with a specific test execution. Returns a comprehensive list of tests included in the test execution, along with their current execution status and results.",
         "operationId": "listTestExecutionTests",
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test execution tests successfully retrieved. Returns a list of all test issues associated with the specified test execution, including test details, execution status, and results."
           }
         }
       },
@@ -632,7 +632,7 @@
           "test execution"
         ],
         "summary": "Update test execution tests",
-        "description": "associate test to a test execution",
+        "description": "Associates or disassociates test issues with a test execution. Supports adding new tests to the execution scope or removing tests from the execution plan through 'add' and 'remove' operations.",
         "operationId": "associateTestToTestExecution",
         "requestBody": {
           "content": {
@@ -673,7 +673,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test execution association operation completed successfully. The specified test has been associated with or removed from the test execution as requested."
           }
         }
       },
@@ -720,7 +720,7 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run details successfully retrieved. Returns comprehensive Test Run information including execution status, start/finish timestamps, assignee, test environments, defect associations, step-by-step results with evidence attachments, custom field values, and execution duration metrics."
           }
         }
       }
@@ -775,7 +775,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run successfully updated. Returns the updated Test Run with new field values, execution status, evidence attachments, defect associations, and confirmation of all changes applied."
           }
         }
       },
@@ -798,11 +798,11 @@
           "test run"
         ],
         "summary": "Get test run status",
-        "description": "Get test run status",
+        "description": "Retrieves the current execution status of a specific Test Run. Returns the status value (TODO, EXECUTING, PASS, FAIL, ABORTED, or custom status) along with related execution metadata.",
         "operationId": "getTestRunStatus",
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run status successfully retrieved. Returns the current execution status value and related execution metadata including timestamps and status history."
           }
         }
       },
@@ -848,7 +848,7 @@
           "test run"
         ],
         "summary": "List test run defects",
-        "description": "get test run defects",
+        "description": "Retrieves all defect issues (bugs, issues) associated with a specific Test Run. Returns a comprehensive list of defects linked to the test run, providing traceability between failed test executions and their related issues.",
         "operationId": "getTestRunDefects",
         "requestBody": {
           "content": {
@@ -884,7 +884,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run defects successfully retrieved. Returns a comprehensive list of all defect issues associated with the Test Run, including defect details, link information, and traceability metadata."
           }
         }
       },
@@ -920,7 +920,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Defects successfully linked to Test Run. Returns confirmation of the defect associations created, including the bidirectional traceability links established between the Test Run and the specified defect issues."
           }
         }
       },
@@ -943,7 +943,7 @@
           "test run"
         ],
         "summary": "Unlink defect from test run",
-        "description": "remove/unlink defects from test run",
+        "description": "Removes the association between a defect issue and a Test Run. This operation breaks the traceability link without affecting the defect issue itself, maintaining clean defect tracking records.",
         "operationId": "unlinkDefectsFromTestRun",
         "requestBody": {
           "content": {
@@ -979,7 +979,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Defect successfully unlinked from Test Run. The association between the specified defect and Test Run has been removed, while preserving the defect issue itself."
           }
         }
       },
@@ -1012,7 +1012,7 @@
           "test run"
         ],
         "summary": "List test run attachments",
-        "description": "Get all evidence/attachment(s) linked to the test run",
+        "description": "Retrieves all evidence and attachment files linked to a specific Test Run. Returns a comprehensive list of attachments including file metadata, content types, and attachment identifiers.",
         "operationId": "getTestRunAttachments",
         "requestBody": {
           "content": {
@@ -1048,7 +1048,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run attachments successfully retrieved. Returns a comprehensive list of all evidence and attachment files linked to the Test Run, including file metadata, content types, and download links."
           }
         }
       },
@@ -1057,7 +1057,7 @@
           "test run"
         ],
         "summary": "Add test run attachment",
-        "description": "add evidence/attachment(s) to the test run",
+        "description": "Uploads and attaches evidence files to a specific Test Run. Supports multiple file formats and creates permanent evidence links for test execution documentation and proof of testing activities.",
         "operationId": "addTestRunAttachment",
         "requestBody": {
           "content": {
@@ -1093,7 +1093,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Attachment successfully added to Test Run. Returns confirmation of the evidence upload with attachment metadata including file ID, content type, and storage location."
           }
         }
       },
@@ -1102,7 +1102,7 @@
           "test run"
         ],
         "summary": "Delete test run attachment by name",
-        "description": "delete evidence/attachment by name",
+        "description": "Removes a specific attachment from a Test Run by filename. This operation permanently deletes the evidence file and its association with the Test Run.",
         "operationId": "deleteTestRunAttachmentByName",
         "requestBody": {
           "content": {
@@ -1117,7 +1117,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Attachment successfully deleted from Test Run. The specified evidence file has been permanently removed from the Test Run and file storage."
           }
         }
       },
@@ -1140,7 +1140,7 @@
           "test run"
         ],
         "summary": "Delete test run attachment",
-        "description": "Delete evidence/attachment",
+        "description": "Removes a specific attachment from a Test Run by attachment ID. This operation permanently deletes the evidence file and its association with the Test Run.",
         "operationId": "deleteTestRunAttachment",
         "requestBody": {
           "content": {
@@ -1176,7 +1176,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Attachment successfully deleted from Test Run. The specified evidence file has been permanently removed from the Test Run and file storage using the attachment ID."
           }
         }
       },
@@ -1209,11 +1209,11 @@
           "test run"
         ],
         "summary": "Get test run comment",
-        "description": "get test run comment",
+        "description": "Retrieves the comment associated with a specific Test Run. Returns the textual comment that provides additional context, notes, or observations about the test execution.",
         "operationId": "getTestRunComment",
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run comment successfully retrieved. Returns the textual comment content associated with the Test Run, providing contextual information about the execution."
           }
         }
       },
@@ -1222,7 +1222,7 @@
           "test run"
         ],
         "summary": "Update test run comment",
-        "description": "update test run comment",
+        "description": "Updates or sets the comment for a specific Test Run. Allows adding contextual information, execution notes, or observations about the test run results and process.",
         "operationId": "updateTestRunComment",
         "requestBody": {
           "content": {
@@ -1237,7 +1237,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run comment successfully updated. Returns confirmation that the comment has been set or modified for the Test Run."
           }
         }
       },
@@ -1260,11 +1260,11 @@
           "test run"
         ],
         "summary": "Get test run assignee",
-        "description": "get test run assignee",
+        "description": "Retrieves the user assigned to execute a specific Test Run. Returns the assignee information including user details and assignment metadata.",
         "operationId": "getTestRunAssignee",
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run assignee successfully retrieved. Returns the user information for the person assigned to execute the Test Run, including user details and assignment metadata."
           }
         }
       },
@@ -1287,11 +1287,11 @@
           "test run"
         ],
         "summary": "List test run steps",
-        "description": "Get all test run steps",
+        "description": "Retrieves all step results for a specific Test Run. Returns detailed information about each test step execution including status, evidence, comments, and actual results.",
         "operationId": "listTestRunSteps",
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run steps successfully retrieved. Returns a comprehensive list of all step execution results for the Test Run, including step status, evidence attachments, comments, and detailed execution information."
           }
         }
       },
@@ -1314,11 +1314,11 @@
           "test run"
         ],
         "summary": "Get test run step details",
-        "description": "Get test run step details",
+        "description": "Retrieves detailed information about a specific test step result within a Test Run. Returns step execution status, evidence attachments, comments, actual results, and execution timing information.",
         "operationId": "getTestRunStepDetails",
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run step details successfully retrieved. Returns comprehensive information about the specific step execution including status, evidence attachments, comments, actual results, and timing data."
           }
         }
       },
@@ -1327,7 +1327,7 @@
           "test run"
         ],
         "summary": "Update test run step details",
-        "description": "Update test run step details",
+        "description": "Updates the execution details of a specific test step within a Test Run. Allows modification of step status, actual results, comments, and evidence attachments.",
         "operationId": "updateTestRunStepDetails",
         "requestBody": {
           "content": {
@@ -1402,7 +1402,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run step details successfully updated. Returns confirmation of the step modifications including updated status, actual results, comments, and evidence attachments."
           }
         }
       },
@@ -1435,11 +1435,11 @@
           "test run"
         ],
         "summary": "Get test run step status",
-        "description": "Get test run step status",
+        "description": "Retrieves the execution status of a specific test step within a Test Run. Returns the current status value (PASS, FAIL, EXECUTING, etc.) and related execution metadata.",
         "operationId": "getTestRunStepStatus",
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run step status successfully retrieved. Returns the current execution status of the test step with related metadata including timestamps and execution context."
           }
         }
       },
@@ -1448,7 +1448,7 @@
           "test run"
         ],
         "summary": "Update test run step status",
-        "description": "Update test run step status",
+        "description": "Updates the execution status of a specific test step within a Test Run. Sets the step result to PASS, FAIL, or other configured status values, automatically updating step execution timestamps.",
         "operationId": "updateTestRunStepStatus",
         "parameters": [
           {
@@ -1462,7 +1462,7 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test Run step status successfully updated. Returns confirmation of the status change with updated timestamp information and the new step execution status."
           }
         }
       },
@@ -1495,7 +1495,7 @@
           "test run"
         ],
         "summary": "List test run step attachments",
-        "description": "Get all evidence/attachment(s) linked to the test run step",
+        "description": "Retrieves all evidence and attachment files linked to a specific test step within a Test Run. Returns step-level evidence including screenshots, logs, and documentation files.",
         "operationId": "getTestRunStepAttachments",
         "requestBody": {
           "content": {
@@ -1519,7 +1519,7 @@
           "test run"
         ],
         "summary": "Add test run step attachment",
-        "description": "add evidence/attachment(s) to the test run step",
+        "description": "Uploads and attaches evidence files to a specific test step within a Test Run. Supports step-level evidence documentation such as screenshots, logs, and verification artifacts.",
         "operationId": "addTestRunStepAttachment",
         "requestBody": {
           "content": {
@@ -1564,7 +1564,7 @@
           "test run"
         ],
         "summary": "Delete test run step attachment by name",
-        "description": "delete evidence/attachment in test run step by name",
+        "description": "Removes a specific attachment from a test step within a Test Run by filename. This operation permanently deletes the step-level evidence file and its association.",
         "operationId": "deleteTestRunStepAttachmentByName",
         "requestBody": {
           "content": {
@@ -1612,7 +1612,7 @@
           "test run"
         ],
         "summary": "Delete test run step attachment",
-        "description": "Delete evidence/attachment in test run step",
+        "description": "Removes a specific attachment from a test step within a Test Run by attachment ID. This operation permanently deletes the step-level evidence file and its association.",
         "operationId": "deleteTestRunStepAttachment",
         "requestBody": {
           "content": {
@@ -1670,7 +1670,7 @@
           "test run"
         ],
         "summary": "Get outline example details",
-        "description": "Updates the details of an outline example for a given test run and example index.",
+        "description": "Retrieves the details of a specific outline example for a given test run and example index. Returns example execution data for scenario outline tests including parameter values and results.",
         "operationId": "getOutlineExampleDetailsByIndex",
         "responses": {
           "200": {
@@ -1683,7 +1683,7 @@
           "test run"
         ],
         "summary": "Update outline example details",
-        "description": "Updates the details of an outline example for a given test run and example index.",
+        "description": "Updates the execution details of a specific outline example for a given test run and example index. Allows modification of example status, results, and parameter values for scenario outline tests.",
         "operationId": "updateOutlineExampleDetails",
         "parameters": [
           {
@@ -1802,11 +1802,11 @@
           "test plan"
         ],
         "summary": "List test plan tests",
-        "description": "get tests associated to test plan, along with their consolidated status",
+        "description": "Retrieves all test issues associated with a specific test plan, along with their consolidated execution status across different test executions. Returns comprehensive test information including current status, execution history, and test plan association details.",
         "operationId": "getTestPlanTests",
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test plan tests successfully retrieved. Returns a comprehensive list of all test issues associated with the test plan, including their consolidated execution status, test details, and execution history across different test executions."
           }
         }
       },
@@ -1815,7 +1815,7 @@
           "test plan"
         ],
         "summary": "Update test plan tests",
-        "description": "associate test to a test plan",
+        "description": "Associates or disassociates test issues with a test plan. Supports adding new tests to the test plan scope or removing tests from the plan through 'add' and 'remove' operations, enabling dynamic test plan management.",
         "operationId": "associateTestToTestPlan",
         "requestBody": {
           "content": {
@@ -1856,7 +1856,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test plan association operation completed successfully. The specified test has been associated with or removed from the test plan as requested, updating the test plan scope accordingly."
           }
         }
       },
@@ -1879,11 +1879,11 @@
           "test"
         ],
         "summary": "List test plans",
-        "description": "export test' test plans",
+        "description": "Retrieves all test plan issues that include the specified test. Returns a list of test plans where the test is a member, providing visibility into test planning and organization across different project contexts.",
         "operationId": "listTestTestPlans",
         "responses": {
           "200": {
-            "description": ""
+            "description": "Test plans successfully retrieved. Returns a comprehensive list of all test plan issues that include the specified test, with test plan details and association metadata."
           }
         }
       },
@@ -1933,7 +1933,7 @@
           "test repository"
         ],
         "summary": "Get test repository folder",
-        "description": "get details of a test repository's folder",
+        "description": "Retrieves detailed information about a specific folder within the test repository. Returns folder metadata including name, path, parent folder, permissions, and contained test assets for the specified folder ID.",
         "operationId": "getTestRepositoryFolder",
         "responses": {
           "200": {
@@ -2005,7 +2005,7 @@
           "test repository"
         ],
         "summary": "Update test repository folder",
-        "description": "Notes:\n- the docs mention HTTP status code 204 in success but it returns 200\n-  depends on previous",
+        "description": "Updates the properties of an existing folder in the test repository. This operation allows changing the folder name and other properties to reorganize the test repository structure. Returns success confirmation after the folder is updated.",
         "operationId": "updateTestRepositoryFolder",
         "requestBody": {
           "content": {
@@ -2040,7 +2040,7 @@
           "test repository"
         ],
         "summary": "Delete test repository folder",
-        "description": "Notes:\n- the docs mention HTTP status code 204 in success but it returns 200\n-  depends on previous",
+        "description": "Removes a folder from the test repository permanently. This operation deletes the specified folder and all its content, including subfolders and test associations. Use with caution as this action cannot be undone. Returns success confirmation after the folder is deleted.",
         "operationId": "deleteTestRepositoryFolder",
         "requestBody": {
           "content": {
@@ -2099,11 +2099,11 @@
           "test repository"
         ],
         "summary": "List folder tests",
-        "description": "get tests within a specific folder in the test repository",
+        "description": "Retrieves all test issues contained within a specific folder in the test repository. Returns a comprehensive list of tests stored in the folder, including test details, metadata, and organization information. This endpoint enables navigation and management of tests organized in the repository structure.",
         "operationId": "getFolderTests",
         "responses": {
           "200": {
-            "description": ""
+            "description": "Folder tests successfully retrieved. Returns a list of all test issues stored in the specified folder, including test keys, names, and metadata."
           }
         }
       },
@@ -2136,7 +2136,7 @@
           "test repository"
         ],
         "summary": "Update folder tests",
-        "description": "Notes:\n- the docs mention HTTP status code 204 in success but it returns 200\n- not depends on previous",
+        "description": "Associates or disassociates test issues with a specific folder in the test repository. Supports adding new tests to the folder or removing existing tests through 'add' and 'remove' operations. This endpoint enables flexible organization and management of tests within the repository structure.",
         "operationId": "addTestsToFolder",
         "requestBody": {
           "content": {
@@ -2177,7 +2177,7 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Folder tests successfully updated. The specified tests have been associated with or removed from the folder as requested, updating the folder's test organization."
           }
         }
       },
@@ -2210,7 +2210,7 @@
           "import"
         ],
         "summary": "Import standard test execution results",
-        "description": "Import standard test execution results",
+        "description": "Imports test execution results using Xray's native JSON format. Creates a new test execution issue or updates an existing one with test run results, including test outcomes, evidence, and execution metadata. Supports bulk import of multiple test results in a single operation.",
         "operationId": "importXrayJsonResults",
         "requestBody": {
           "content": {
@@ -5164,7 +5164,7 @@
           "export"
         ],
         "summary": "Export cucumber tests, as .feature",
-        "description": "Export cucumber tests, as .feature",
+        "description": "Exports Cucumber test scenarios as .feature files. Retrieves specified tests and formats them into standard Cucumber/Gherkin syntax, including feature descriptions, scenario definitions, step implementations, and data tables. Supports filtering by test keys and export configuration.",
         "operationId": "listCucumberTestsAsFeature",
         "parameters": [
           {
