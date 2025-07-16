@@ -61,21 +61,25 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
                  "command": "uvx",
                  "args": [
                      "--from",
-                     "git+https://github.com/tivaliy/mcp-xray@commit_hash_here",
+                     "git+https://github.com/tivaliy/mcp-xray@main",
                      "mcp-xray",
                      "--xray-url",
                      "https://your-domain.example.com/jira/rest/raven/2.0/api",
                      "--xray-personal-token",
                      "${input:xray_token}",
                      "--xray-openapi-spec",
-                     "xray_v2.0.json"
+                     "xray_v2.0.json",
+                     "--mcp-names-file",
+                     "mcp_names_mapping.json"
                  ]
              }
          }
      }
      ```
-   - Adjust the `--xray-url` and `--xray-openapi-spec` as needed for the environment. The `--xray-openapi-spec` option accepts either a local file path or a URL.
-   - Use `uvx` with `--from` flag and appropriate github link as a reference with the commit hash, since no PyPI package is available yet.
+   - Adjust the `--xray-url`, `--xray-openapi-spec`, and `--mcp-names-file` as needed for the environment.
+   - The `--xray-openapi-spec` option accepts either a local file path or a URL.
+   - The optional `--mcp-names-file` parameter must point to the mapping file (see `mcp_names_mapping.json` as an example). This file provides a mapping from Xray operationId to a corresponding MCP tool name in case there is a need to tune the MCP tool names for specific operations.
+   - Use `uvx` with `--from` flag and appropriate github link as a reference with the commit hash or branch name, since no PyPI package is available yet.
    - The Xray personal access token will be prompted interactively and not stored in plain text.
 
 ## OpenAPI Schema: Source, Limitations, and Maintenance

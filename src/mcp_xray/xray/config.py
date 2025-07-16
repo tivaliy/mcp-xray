@@ -32,12 +32,18 @@ class XrayConfig(BaseSettings):
     openapi_spec: str = Field(
         ..., description="Path to the OpenAPI specification file: URL or local path"
     )
+    # Optional MCP names mapping file
+    mcp_names_file: str | None = Field(
+        None,
+        description="Path to JSON file containing operationId to MCP name mappings",
+    )
+
     # Xray client configuration
     timeout: float = 20.0
 
     model_config = SettingsConfigDict(
         env_file=".env",
-        env_prefix="XRAY_",
+        env_prefix="XRAY_",  # Environment variables should be prefixed with XRAY_
         frozen=True,
     )
 

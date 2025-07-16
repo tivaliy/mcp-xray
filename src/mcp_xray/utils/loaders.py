@@ -6,14 +6,14 @@ from urllib.parse import urlparse
 import httpx
 
 
-def load_openapi_spec(spec_location: str) -> dict[str, Any]:
-    """Load the OpenAPI spec from a local file path or remote URL.
+def load_json(file_location: str) -> dict[str, Any]:
+    """Loads file of JSON format from a local file path or remote URL.
 
     Args:
-        spec_location: Path to a local file or URL to a remote OpenAPI spec
+        file_path: Path to a local file or URL to a remote JSON file
 
     Returns:
-        Dictionary containing the parsed OpenAPI specification
+        Dictionary containing the parsed JSON data
 
     Raises:
         FileNotFoundError: If local file doesn't exist
@@ -21,18 +21,18 @@ def load_openapi_spec(spec_location: str) -> dict[str, Any]:
         json.JSONDecodeError: If the content is not valid JSON
     """
     # Check if it's a URL
-    parsed = urlparse(spec_location)
+    parsed = urlparse(file_location)
     if parsed.scheme in ("http", "https"):
         # Load from remote URL
         with httpx.Client() as client:
-            response = client.get(spec_location)
+            response = client.get(file_location)
             response.raise_for_status()
             return response.json()
     else:
         # Load from local file
-        path = Path(spec_location)
+        path = Path(file_location)
         if not path.is_file():
-            msg = f"OpenAPI spec file does not exist: {spec_location}"
+            msg = f"OpenAPI spec file does not exist: {file_location}"
             raise FileNotFoundError(msg)
 
         with path.open("r", encoding="utf-8") as f:

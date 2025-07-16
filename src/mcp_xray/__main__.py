@@ -56,6 +56,11 @@ from mcp_xray.utils import setup_logging
     required=True,
     help="Path or URL to the OpenAPI spec file for Xray API",
 )
+@click.option(
+    "--mcp-names-file",
+    type=click.Path(exists=True, dir_okay=False, readable=True),
+    help="Path to JSON file containing operationId to MCP name mappings",
+)
 def main(
     verbose: int,
     transport: str,
@@ -65,6 +70,7 @@ def main(
     xray_url: str,
     xray_personal_token: str,
     xray_openapi_spec: str,
+    mcp_names_file: str | None = None,
 ) -> None:
     """MCP-Xray Server - Xray integration for MCP."""
     # Logging level logic
@@ -128,6 +134,8 @@ def main(
         os.environ["XRAY_URL"] = xray_url
     if click_ctx and was_option_provided(click_ctx, "xray_personal_token"):
         os.environ["XRAY_PERSONAL_TOKEN"] = xray_personal_token
+    if click_ctx and mcp_names_file and was_option_provided(click_ctx, "mcp_names_file"):
+        os.environ["XRAY_MCP_NAMES_FILE"] = mcp_names_file
 
     # Create the FastMCP application
     mcp_app = create_mcp()

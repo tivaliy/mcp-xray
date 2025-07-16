@@ -12,7 +12,7 @@
             "command": "uvx",
             "args": [
                 "--from",
-                "git+https://github.com/tivaliy/mcp-xray@acc331a",
+                "git+https://github.com/tivaliy/mcp-xray@main",
                 "mcp-xray",
                 "--xray-url",
                 "https://your-domain.example.com/jira/rest/raven/2.0/api",
@@ -20,6 +20,8 @@
                 "${input:xray_token}",
                 "--xray-openapi-spec",
                 "xray_v2.0.json"
+                "--mcp-names-file",
+                "mcp_names_mapping.json"
             ]
         }
     }
