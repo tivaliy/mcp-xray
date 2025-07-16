@@ -27,20 +27,6 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
 
 ## Quick Start Guide
 
-1. **Install dependencies**
-
-   Sync dependencies from `pyproject.toml`:
-
-   ```bash
-   uv sync
-   ```
-
-   Install the project in editable mode:
-
-   ```bash
-   uv pip install -e .
-   ```
-
 1. **Obtain a Personal Access Token (PAT) for Xray**
 
    - Log in to your Jira instance with Xray installed.
@@ -52,8 +38,7 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
 
    - The OpenAPI (Swagger) spec for the relevant Xray version can be provided as either a local file path or a direct URL.
    - The spec may be downloaded from an Xray server, obtained from the official documentation, or referenced via a direct URL if available.
-   - Example local file: `/path/to/xray_openapi.json`
-   - Example URL: `https://docs.getxray.app/download/attachments/62267123/xray_7.12_api_doc.json?api=v2`
+   - Only `json` format is supported for now.
 
 1. **Configure and run in VS Code**
 
