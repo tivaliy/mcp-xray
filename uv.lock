@@ -385,7 +385,6 @@ wheels = [
 
 [[package]]
 name = "mcp-xray"
-version = "0.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "click" },

@@ -1,7 +1,7 @@
 [project]
 name = "mcp-xray"
-version = "0.0.1"
-description = "Xray MCP server"
+dynamic = ["version"]
+description = "Xray MCP server for proxying and managing Jira Xray requests with AI language models"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -21,7 +21,7 @@ requires = ["hatchling", "uv-dynamic-versioning>=0.8.2"]
 build-backend = "hatchling.build"
 
 [project.scripts]
-mcp-xray = "mcp_xray:main"
+mcp-xray = "mcp_xray.__main__:main"
 
 [dependency-groups]
 dev = [
@@ -73,3 +73,12 @@ line-ending = "auto"
 
 [tool.mypy]
 python_version = "3.12"
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.uv-dynamic-versioning]
+vcs = "git"
+style = "pep440"
+bump = true
+fallback-version = "0.0.0"
