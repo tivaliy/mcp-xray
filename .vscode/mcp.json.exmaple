@@ -1,0 +1,26 @@
+{
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "xray_token",
+            "description": "Xray Personal Access Token",
+            "password": true
+        }
+    ],
+    "servers": {
+        "mcp-xray": {
+            "command": "uvx",
+            "args": [
+                "--from",
+                "git+https://github.com/tivaliy/mcp-xray@acc331a",
+                "mcp-xray",
+                "--xray-url",
+                "https://your-domain.example.com",
+                "--xray-personal-token",
+                "${input:xray_token}",
+                "--xray-openapi-spec",
+                "xray_v2.0.json"
+            ]
+        }
+    }
+}

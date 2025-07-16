@@ -60,35 +60,37 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
    - Open the project in VS Code.
    - Use the provided below example settings to configure the server.
    - When you start the server via the VS Code MCP extension or command palette, you will be prompted for your Xray API token securely.
-   - Example configuration (can be stored in `.vscode/mcp.json`):
+   - Example configuration (see `.vscode/mcp.json.example`):
      ```json
      {
          "inputs": [
              {
                  "type": "promptString",
                  "id": "xray_token",
-                 "description": "Xray Cloud API Token",
+                 "description": "Xray Personal Access Token",
                  "password": true
              }
          ],
          "servers": {
              "mcp-xray": {
-                 "command": "${workspaceFolder}/.venv/bin/python",
+                 "command": "uvx",
                  "args": [
-                     "mcp_xray",
+                     "--from",
+                     "git+https://github.com/tivaliy/mcp-xray@commit_hash_here",
+                     "mcp-xray",
                      "--xray-url",
-                     "https://<your-xray-instance>",
+                     "https://your-domain.example.com",
                      "--xray-personal-token",
                      "${input:xray_token}",
                      "--xray-openapi-spec",
-                     "/path/to/xray_openapi.json"
-                 ],
-                 "type": "stdio"
+                     "xray_v2.0.json"
+                 ]
              }
          }
      }
      ```
    - Adjust the `--xray-url` and `--xray-openapi-spec` as needed for the environment. The `--xray-openapi-spec` option accepts either a local file path or a URL.
+   - Use `uvx` with `--from` flag and appropriate github link as a reference with the commit hash, since no PyPI package is available yet.
    - The Xray personal access token will be prompted interactively and not stored in plain text.
 
 ## OpenAPI Schema: Source, Limitations, and Maintenance
