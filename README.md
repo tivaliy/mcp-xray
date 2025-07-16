@@ -64,7 +64,7 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
                      "git+https://github.com/tivaliy/mcp-xray@commit_hash_here",
                      "mcp-xray",
                      "--xray-url",
-                     "https://your-domain.example.com",
+                     "https://your-domain.example.com/jira/rest/raven/2.0/api",
                      "--xray-personal-token",
                      "${input:xray_token}",
                      "--xray-openapi-spec",

@@ -15,7 +15,7 @@
                 "git+https://github.com/tivaliy/mcp-xray@acc331a",
                 "mcp-xray",
                 "--xray-url",
-                "https://your-domain.example.com",
+                "https://your-domain.example.com/jira/rest/raven/2.0/api",
                 "--xray-personal-token",
                 "${input:xray_token}",
                 "--xray-openapi-spec",
