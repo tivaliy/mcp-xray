@@ -141,7 +141,7 @@
         }
       ]
     },
-    "/test/{testKey}/steps/{stepId}": {
+    "/test/{testKey}/step/{stepId}": {
       "get": {
         "tags": ["test step"],
         "summary": "Get test step",
@@ -231,7 +231,7 @@
         {"name": "stepId", "in": "path", "required": true, "description": "The unique identifier of the test step", "schema": {"type": "string", "example": "67890"}}
       ]
     },
-    "/test/{testKey}/steps/{stepId}/attachments": {
+    "/test/{testKey}/step/{stepId}/attachments": {
       "get": {
         "tags": [
           "test step"
@@ -268,7 +268,7 @@
           }
         ]
     },
-    "/test/{testKey}/steps/{stepId}/attachment/{attachmentId}": {
+    "/test/{testKey}/step/{stepId}/attachment/{attachmentId}": {
       "delete": {
         "tags": [
           "test step"
@@ -482,6 +482,38 @@
         }
       ]
     },
+    "/precondition/{preconditionKey}/test/{testKey}": {
+      "delete": {
+        "tags": ["precondition"],
+        "summary": "Remove test from precondition",
+        "description": "Removes the association of the specified test from the given precondition.",
+        "operationId": "deleteTestFromPrecondition",
+        "parameters": [
+          {
+            "name": "preconditionKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the precondition issue",
+            "schema": { "type": "string", "example": "PRECOND-123" }
+          },
+          {
+            "name": "testKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test issue to remove",
+            "schema": { "type": "string", "example": "TEST-123" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Test successfully removed from precondition."
+          },
+          "404": {
+            "description": "Precondition or test not found."
+          }
+        }
+      }
+    },
     "/test/{testKey}/preconditions": {
       "get": {
         "tags": [
@@ -586,6 +618,38 @@
         }
       ]
     },
+    "/testset/{testSetKey}/test/{testKey}": {
+      "delete": {
+        "tags": ["test set"],
+        "summary": "Remove test from test set",
+        "description": "Removes the association of the specified test from the given test set.",
+        "operationId": "deleteTestFromTestSet",
+        "parameters": [
+          {
+            "name": "testSetKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test set issue",
+            "schema": { "type": "string", "example": "TESTSET-123" }
+          },
+          {
+            "name": "testKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test issue to remove",
+            "schema": { "type": "string", "example": "TEST-123" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Test successfully removed from test set."
+          },
+          "404": {
+            "description": "Test set or test not found."
+          }
+        }
+      }
+    },
     "/test/{testKey}/testsets": {
       "get": {
         "tags": [
@@ -627,7 +691,7 @@
           }
         }
       },
-      "post": {
+      "put": {
         "tags": [
           "test execution"
         ],
@@ -689,6 +753,38 @@
           }
         }
       ]
+    },
+    "/testexec/{testExecKey}/test/{testKey}": {
+      "delete": {
+        "tags": ["test execution"],
+        "summary": "Remove test from test execution",
+        "description": "Removes the association of the specified test from the given test execution.",
+        "operationId": "deleteTestFromTestExecution",
+        "parameters": [
+          {
+            "name": "testExecKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test execution issue",
+            "schema": { "type": "string", "example": "EXEC-123" }
+          },
+          {
+            "name": "testKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test issue to remove",
+            "schema": { "type": "string", "example": "TEST-123" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Test successfully removed from test execution."
+          },
+          "404": {
+            "description": "Test execution or test not found."
+          }
+        }
+      }
     },
     "/testrun": {
       "get": {
@@ -888,7 +984,7 @@
           }
         }
       },
-      "post": {
+      "put": {
         "tags": [
           "test run"
         ],
@@ -1265,6 +1361,46 @@
         "responses": {
           "200": {
             "description": "Test Run assignee successfully retrieved. Returns the user information for the person assigned to execute the Test Run, including user details and assignment metadata."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "test run"
+        ],
+        "summary": "Update test run assignee",
+        "description": "Updates the assignee for a specific Test Run. Allows changing the user responsible for executing the test run, supporting workload management and assignment workflows.",
+        "operationId": "updateTestRunAssignee",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "assignee": {
+                    "type": "string",
+                    "description": "The user identifier (username, email, or account ID) to assign to the test run.",
+                    "example": "user@example.com"
+                  }
+                },
+                "required": ["assignee"]
+              },
+              "examples": {
+                "update assignee": {
+                  "value": {
+                    "assignee": "user@example.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Test run assignee successfully updated. Returns the updated assignee information and confirmation of the assignment change."
+          },
+          "404": {
+            "description": "Test run or user not found."
           }
         }
       },
@@ -1873,6 +2009,145 @@
         }
       ]
     },
+    "/testplan/{testPlanKey}/test/{testKey}": {
+      "delete": {
+        "tags": ["test plan"],
+        "summary": "Remove test from test plan",
+        "description": "Removes the association of the specified test from the given test plan.",
+        "operationId": "deleteTestFromTestPlan",
+        "parameters": [
+          {
+            "name": "testPlanKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test plan issue",
+            "schema": { "type": "string", "example": "PLAN-123" }
+          },
+          {
+            "name": "testKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test issue to remove",
+            "schema": { "type": "string", "example": "TEST-123" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Test successfully removed from test plan."
+          },
+          "404": {
+            "description": "Test plan or test not found."
+          }
+        }
+      }
+    },
+    "/testplan/{testPlanKey}/testexecution": {
+      "get": {
+        "tags": ["test plan"],
+        "summary": "List test executions in a test plan",
+        "description": "Retrieves all test execution issues associated with a specific test plan. Returns a list of test executions that are linked to the test plan, including execution details and association metadata.",
+        "operationId": "getTestExecutionsWithTestPlan",
+        "parameters": [
+          {
+            "name": "testPlanKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test plan issue",
+            "schema": { "type": "string", "example": "PLAN-123" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Test executions successfully retrieved. Returns a list of all test executions associated with the specified test plan, including execution details and association metadata."
+          },
+          "404": {
+            "description": "Test plan not found."
+          }
+        }
+      },
+      "put": {
+        "tags": ["test plan"],
+        "summary": "Update test plan test executions",
+        "description": "Associates or disassociates test execution issues with a test plan. Supports adding new test executions to the plan or removing existing ones through 'add' and 'remove' operations.",
+        "operationId": "updateTestPlanTestExecutions",
+        "parameters": [
+          {
+            "name": "testPlanKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test plan issue",
+            "schema": { "type": "string", "example": "PLAN-123" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "add": {
+                    "type": "array",
+                    "items": { "type": "string", "description": "Test execution key to add", "example": "TESTEXEC-123" },
+                    "description": "List of test execution keys to associate with the test plan."
+                  },
+                  "remove": {
+                    "type": "array",
+                    "items": { "type": "string", "description": "Test execution key to remove", "example": "TESTEXEC-456" },
+                    "description": "List of test execution keys to disassociate from the test plan."
+                  }
+                },
+                "additionalProperties": false
+              },
+              "example": {
+                "add": ["TESTEXEC-123"],
+                "remove": ["TESTEXEC-456"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Test plan test executions updated successfully. The specified test executions have been associated with or removed from the test plan as requested."
+          },
+          "404": {
+            "description": "Test plan or test execution not found."
+          }
+        }
+      }
+    },
+    "/testplan/{testPlanKey}/testexecution/{testExecKey}": {
+      "delete": {
+        "tags": ["test plan"],
+        "summary": "Remove test execution from test plan",
+        "description": "Removes the association of the specified test execution from the given test plan.",
+        "operationId": "deleteTestExecutionFromTestPlan",
+        "parameters": [
+          {
+            "name": "testPlanKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test plan issue",
+            "schema": { "type": "string", "example": "PLAN-123" }
+          },
+          {
+            "name": "testExecKey",
+            "in": "path",
+            "required": true,
+            "description": "The key of the test execution to remove",
+            "schema": { "type": "string", "example": "TESTEXEC-123" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Test execution successfully removed from test plan."
+          },
+          "404": {
+            "description": "Test plan or test execution not found."
+          }
+        }
+      }
+    },
     "/test/{testKey}/testplans": {
       "get": {
         "tags": [
@@ -1914,33 +2189,6 @@
           }
         }
       },
-      "parameters": [
-        {
-          "name": "projectKey",
-          "in": "path",
-          "required": true,
-          "description": "The key of the Jira project",
-          "schema": {
-            "type": "string",
-            "example": "MYPROJ"
-          }
-        }
-      ]
-    },
-    "/testrepository/{projectKey}/folders/{folderId}": {
-      "get": {
-        "tags": [
-          "test repository"
-        ],
-        "summary": "Get test repository folder",
-        "description": "Retrieves detailed information about a specific folder within the test repository. Returns folder metadata including name, path, parent folder, permissions, and contained test assets for the specified folder ID.",
-        "operationId": "getTestRepositoryFolder",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
       "post": {
         "tags": [
           "test repository"
@@ -1970,6 +2218,33 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "projectKey",
+          "in": "path",
+          "required": true,
+          "description": "The key of the Jira project",
+          "schema": {
+            "type": "string",
+            "example": "MYPROJ"
+          }
+        }
+      ]
+    },
+    "/testrepository/{projectKey}/folders/{folderId}": {
+      "get": {
+        "tags": [
+          "test repository"
+        ],
+        "summary": "Get test repository folder",
+        "description": "Retrieves detailed information about a specific folder within the test repository. Returns folder metadata including name, path, parent folder, permissions, and contained test assets for the specified folder ID.",
+        "operationId": "getTestRepositoryFolder",
         "responses": {
           "200": {
             "description": ""
