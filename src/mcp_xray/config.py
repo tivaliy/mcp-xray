@@ -28,6 +28,11 @@ class XrayConfig(BaseSettings):
     auth_type: Literal["pat"] = "pat"
     # Personal Access Token for Xray Server/Data Center
     personal_token: str = Field(..., description="Personal Access Token for Xray API")
+    # Used to filter out write operations in the API
+    read_only: bool = Field(
+        default=False,
+        description="Whether to use the Xray API in read-only mode.",
+    )
     # OpenAPI spec file path or URL
     openapi_spec: str = Field(
         ..., description="Path to the OpenAPI specification file: URL or local path"

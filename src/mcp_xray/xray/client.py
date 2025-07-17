@@ -2,7 +2,7 @@ import logging
 
 import httpx
 
-from .config import XrayConfig
+from ..config import XrayConfig
 
 # Configure logging
 logger = logging.getLogger("mcp-xray")

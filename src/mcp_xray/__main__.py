@@ -61,6 +61,12 @@ from mcp_xray.utils import setup_logging
     type=click.Path(exists=True, dir_okay=False, readable=True),
     help="Path to JSON file containing operationId to MCP name mappings",
 )
+@click.option(
+    "--read-only/--no-read-only",
+    is_flag=True,
+    default=False,
+    help="Run the MCP-Xray in read-only mode (no modifications allowed).",
+)
 def main(
     verbose: int,
     transport: str,
@@ -71,6 +77,8 @@ def main(
     xray_personal_token: str,
     xray_openapi_spec: str,
     mcp_names_file: str | None = None,
+    *,
+    read_only: bool = False,
 ) -> None:
     """MCP-Xray Server - Xray integration for MCP."""
     # Logging level logic
@@ -136,6 +144,8 @@ def main(
         os.environ["XRAY_PERSONAL_TOKEN"] = xray_personal_token
     if click_ctx and mcp_names_file and was_option_provided(click_ctx, "mcp_names_file"):
         os.environ["XRAY_MCP_NAMES_FILE"] = mcp_names_file
+    if click_ctx and was_option_provided(click_ctx, "read_only"):
+        os.environ["XRAY_READ_ONLY"] = str(read_only).lower()
 
     # Create the FastMCP application
     mcp_app = create_mcp()
