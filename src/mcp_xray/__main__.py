@@ -57,9 +57,9 @@ from mcp_xray.utils import setup_logging
     help="Path or URL to the OpenAPI spec file for Xray API",
 )
 @click.option(
-    "--mcp-names-file",
+    "--config-file",
     type=click.Path(exists=True, dir_okay=False, readable=True),
-    help="Path to JSON file containing operationId to MCP name mappings",
+    help="Path to the configuration file (YAML/JSON)",
 )
 @click.option(
     "--read-only/--no-read-only",
@@ -76,7 +76,7 @@ def main(
     xray_url: str,
     xray_personal_token: str,
     xray_openapi_spec: str,
-    mcp_names_file: str | None = None,
+    config_file: str | None = None,
     *,
     read_only: bool = False,
 ) -> None:
@@ -142,8 +142,8 @@ def main(
         os.environ["XRAY_URL"] = xray_url
     if click_ctx and was_option_provided(click_ctx, "xray_personal_token"):
         os.environ["XRAY_PERSONAL_TOKEN"] = xray_personal_token
-    if click_ctx and mcp_names_file and was_option_provided(click_ctx, "mcp_names_file"):
-        os.environ["XRAY_MCP_NAMES_FILE"] = mcp_names_file
+    if click_ctx and config_file and was_option_provided(click_ctx, "config_file"):
+        os.environ["XRAY_CONFIG_FILE"] = config_file
     if click_ctx and was_option_provided(click_ctx, "read_only"):
         os.environ["XRAY_READ_ONLY"] = str(read_only).lower()
 

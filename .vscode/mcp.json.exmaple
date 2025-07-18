@@ -19,9 +19,9 @@
                 "--xray-personal-token",
                 "${input:xray_token}",
                 "--xray-openapi-spec",
-                "xray_v2.0.json"
-                "--mcp-names-file",
-                "mcp_names_mapping.json"
+                "xray_v2.0.json",
+                "--config-file",
+                "config.yaml",
             ]
         }
     }

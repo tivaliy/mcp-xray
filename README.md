@@ -70,18 +70,22 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
                      "${input:xray_token}",
                      "--xray-openapi-spec",
                      "xray_v2.0.json",
-                     "--mcp-names-file",
-                     "mcp_names_mapping.json",
+                     "--config-file",
+                     "config.yaml",
                      "--read-only"
                  ]
              }
          }
      }
      ```
-   - Adjust the `--xray-url`, `--xray-openapi-spec`, and `--mcp-names-file` as needed for the environment.
+   - Adjust the `--xray-url`, `--xray-openapi-spec`, and `--config-file` as needed for the environment.
    - The `--xray-openapi-spec` option accepts either a local file path or a URL.
-   - The optional `--mcp-names-file` parameter must point to the mapping file (see `mcp_names_mapping.json` as an example). This file provides a mapping from Xray operationId to a corresponding MCP tool name in case there is a need to tune the MCP tool names for specific operations.
+   - The optional `--config-file` parameter must point to the configuration file (see `config.yaml` as an example).
+   - For details on route mapping and component naming in OpenAPI integrations, see:
+     - [Route Mapping documentation](https://gofastmcp.com/integrations/openapi#route-mapping)
+     - [Component Names documentation](https://gofastmcp.com/integrations/openapi#component-names)
    - The optional `--read-only` flag starts the server in read-only mode, blocking all write operations (POST, PUT, DELETE) for safe, non-destructive access.
+     - **Note:** If both `--read-only` and `route_maps` are set in the config file, `route_maps` takes precedence and customizes the allowed/disallowed methods.
    - Use `uvx` with `--from` flag and appropriate github link as a reference with the commit hash or branch name, since no PyPI package is available yet.
    - The Xray personal access token will be prompted interactively and not stored in plain text.
 

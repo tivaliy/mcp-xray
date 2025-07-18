@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 
 import httpx
 import yaml
+from pydantic import BaseModel
 
 # Type aliases
 type Extension = str
@@ -24,6 +25,14 @@ class ContentReader(Protocol):
 
     def read_content(self, content: str) -> dict[str, Any]:
         """Parse content string into a dictionary."""
+        ...
+
+
+class DataValidator(Protocol):
+    """Protocol for validating loaded data."""
+
+    def validate(self, data: dict[str, Any]) -> Any:
+        """Validate and potentially transform the data."""
         ...
 
 
@@ -77,6 +86,27 @@ class YamlReader:
             raise ValueError(msg) from e
 
 
+class NoOpValidator:
+    """Validator that returns data unchanged."""
+
+    def validate(self, data: dict[str, Any]) -> dict[str, Any]:
+        return data
+
+
+class PydanticValidator:
+    """Validator for Pydantic BaseModel classes."""
+
+    def __init__(self, model_class: type[BaseModel]) -> None:
+        self.model_class = model_class
+
+    def validate(self, data: dict[str, Any]) -> BaseModel:
+        try:
+            return self.model_class.model_validate(data)
+        except Exception as e:
+            msg = f"Pydantic validation failed: {e}"
+            raise ValueError(msg) from e
+
+
 class DataReaderError(Exception):
     """Base exception for DataReader errors."""
 
@@ -94,7 +124,7 @@ class DataReader:
 
     DEFAULT_SCHEMA: Scheme = "file"
 
-    def __init__(self) -> None:
+    def __init__(self, default_validator: DataValidator | None = None) -> None:
         self._reader_classes: dict[Extension, type[ContentReader]] = {
             ".json": JsonReader,
             ".yaml": YamlReader,
@@ -106,6 +136,8 @@ class DataReader:
             "http": HttpContentFetcher,
             "https": HttpContentFetcher,
         }
+
+        self._default_validator = default_validator or NoOpValidator()
 
     def register_reader(self, extension: Extension, reader_class: type[ContentReader]) -> None:
         """Register a new content reader class for a file extension."""
@@ -131,7 +163,7 @@ class DataReader:
             raise UnsupportedExtensionError(msg)
         return reader_class()
 
-    def load_from(self, file_location: str) -> dict[str, Any]:
+    def load_from(self, file_location: str, *, validator: DataValidator | None = None) -> Any:
         """
         Load data from a file location (local path or URL).
 
@@ -160,4 +192,8 @@ class DataReader:
         reader = self._create_reader(extension)
 
         content = fetcher.fetch(file_location)
-        return reader.read_content(content)
+        data = reader.read_content(content)
+
+        # Use provided validator or default
+        active_validator = validator or self._default_validator
+        return active_validator.validate(data)

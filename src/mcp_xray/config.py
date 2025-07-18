@@ -1,7 +1,8 @@
 from functools import lru_cache
 from typing import Annotated, Literal
 
-from pydantic import BeforeValidator, Field, HttpUrl, TypeAdapter
+from fastmcp.server.openapi import MCPType, RouteMap
+from pydantic import BaseModel, BeforeValidator, Field, HttpUrl, TypeAdapter, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Create a custom URL type that validates as HttpUrl but stores as str
@@ -9,8 +10,8 @@ http_url_adapter = TypeAdapter(HttpUrl)
 Url = Annotated[str, BeforeValidator(lambda value: str(http_url_adapter.validate_python(value)))]
 
 
-class XrayConfig(BaseSettings):
-    """Xray API configuration.
+class AppSettings(BaseSettings):
+    """Application settings for the MCP-Xray integration.
 
     This class handles the configuration for connecting to the Xray API.
     It supports loading configuration from environment variables.
@@ -37,10 +38,10 @@ class XrayConfig(BaseSettings):
     openapi_spec: str = Field(
         ..., description="Path to the OpenAPI specification file: URL or local path"
     )
-    # Optional MCP names mapping file
-    mcp_names_file: str | None = Field(
+    # Optional configuration file
+    config_file: str | None = Field(
         None,
-        description="Path to JSON file containing operationId to MCP name mappings",
+        description="Path to the configuration file",
     )
 
     # Xray client configuration
@@ -53,8 +54,56 @@ class XrayConfig(BaseSettings):
     )
 
 
+class MCPConfiguration(BaseModel):
+    """Configuration for the MCP"""
+
+    mcp_names: dict[str, str] | None = Field(
+        default=None,
+        description="List of mappings for MCP names (originalName -> mapped_name)",
+    )
+    route_maps: list[RouteMap] | None = Field(
+        default=None,
+        description="Custom route mappings for MCP components",
+    )
+
+    @field_validator("route_maps", mode="before")
+    @classmethod
+    def build_route_maps(cls, v: list[object] | None) -> list[RouteMap] | None:
+        if v is None:
+            return v
+        result = []
+        for item in v:
+            if isinstance(item, RouteMap):
+                result.append(item)
+            elif isinstance(item, dict):
+                # Convert mcp_type to MCPType if it's a string
+                if "mcp_type" in item and isinstance(item["mcp_type"], str):
+                    try:
+                        item["mcp_type"] = MCPType[item["mcp_type"]]
+                    except KeyError as err:
+                        msg = (
+                            f"Invalid MCPType: {item['mcp_type']}. Supported types are: "
+                            f"{list(MCPType.__members__.keys())}"
+                        )
+                        raise ValueError(msg) from err
+                # Convert mcp_tags and tags to sets if they are lists
+                for key in ("mcp_tags", "tags"):
+                    if key in item and isinstance(item[key], list):
+                        item[key] = set(item[key])
+                # Create RouteMap instance
+                try:
+                    result.append(RouteMap(**item))
+                except TypeError as err:
+                    msg = f"Error creating RouteMap from item: {item}. Error: {err}"
+                    raise ValueError(msg) from err
+            else:
+                msg = f"Invalid type for route_map: {type(item)}"
+                raise TypeError(msg)
+        return result
+
+
 @lru_cache
-def get_xray_config() -> XrayConfig:
+def get_app_settings() -> AppSettings:
     """Get the Xray configuration settings.
 
     This function caches the settings to avoid reloading them multiple times.
@@ -63,4 +112,4 @@ def get_xray_config() -> XrayConfig:
     Returns:
         An instance of XrayConfig with the loaded settings.
     """
-    return XrayConfig()  # type: ignore[call-arg]
+    return AppSettings()  # type: ignore[call-arg]

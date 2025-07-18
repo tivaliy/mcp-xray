@@ -1,0 +1,99 @@
+# Configuration for MCP Xray
+# This file defines the MCP configuration for Xray, including route maps and MCP names.
+---
+# For more insights see https://gofastmcp.com/integrations/openapi#route-mapping
+route_maps:
+  # Mimic the behavior of the '--read-only' flag
+  - methods: ["POST", "PUT", "DELETE"]
+    mcp_type: EXCLUDE
+
+# For more insights see https://gofastmcp.com/integrations/openapi#component-names
+mcp_names:
+  listTestSteps: xray_list_test_steps
+  createTestStep: xray_create_test_step
+  getTestStep: xray_get_test_step
+  updateTestStep: xray_update_test_step
+  deleteTestStep: xray_delete_test_step
+  listTestStepAttachments: xray_list_test_step_attachments
+  deleteTestStepAttachment: xray_delete_test_step_attachment
+  listTests: xray_list_tests
+  listTestRunsForTest: xray_list_test_runs_for_test
+  listTestExecutions: xray_list_test_executions
+  listPreconditionTests: xray_list_precondition_tests
+  associateTestToPrecondition: xray_associate_test_to_precondition
+  deleteTestFromPrecondition: xray_delete_test_from_precondition
+  listTestPreconditions: xray_list_test_preconditions
+  listTestSetTests: xray_list_test_set_tests
+  associateTestToTestSet: xray_associate_test_to_test_set
+  deleteTestFromTestSet: xray_delete_test_from_test_set
+  listTestTestSets: xray_list_test_test_sets
+  listTestExecutionTests: xray_list_test_execution_tests
+  associateTestToTestExecution: xray_associate_test_to_test_execution
+  deleteTestFromTestExecution: xray_delete_test_from_test_execution
+  getTestRunByKeys: xray_get_test_run_by_keys
+  getTestRun: xray_get_test_run
+  updateTestRun: xray_update_test_run
+  getTestRunStatus: xray_get_test_run_status
+  updateTestRunStatus: xray_update_test_run_status
+  getTestRunDefects: xray_get_test_run_defects
+  linkDefectsToTestRun: xray_link_defects_to_test_run
+  unlinkDefectsFromTestRun: xray_unlink_defects_from_test_run
+  getTestRunAttachments: xray_get_test_run_attachments
+  addTestRunAttachment: xray_add_test_run_attachment
+  deleteTestRunAttachmentByName: xray_delete_test_run_attachment_by_name
+  deleteTestRunAttachment: xray_delete_test_run_attachment
+  getTestRunComment: xray_get_test_run_comment
+  updateTestRunComment: xray_update_test_run_comment
+  getTestRunAssignee: xray_get_test_run_assignee
+  updateTestRunAssignee: xray_update_test_run_assignee
+  listTestRunSteps: xray_list_test_run_steps
+  getTestRunStepDetails: xray_get_test_run_step_details
+  updateTestRunStepDetails: xray_update_test_run_step_details
+  getTestRunStepStatus: xray_get_test_run_step_status
+  updateTestRunStepStatus: xray_update_test_run_step_status
+  getTestRunStepAttachments: xray_get_test_run_step_attachments
+  addTestRunStepAttachment: xray_add_test_run_step_attachment
+  deleteTestRunStepAttachmentByName: xray_delete_test_run_step_attachment_by_name
+  deleteTestRunStepAttachment: xray_delete_test_run_step_attachment
+  getOutlineExampleDetailsByIndex: xray_get_outline_example_details_by_index
+  updateOutlineExampleDetails: xray_update_outline_example_details
+  getTestRunCustomField: xray_get_test_run_custom_field
+  updateTestRunCustomField: xray_update_test_run_custom_field
+  getTestPlanTests: xray_get_test_plan_tests
+  associateTestToTestPlan: xray_associate_test_to_test_plan
+  deleteTestFromTestPlan: xray_delete_test_from_test_plan
+  getTestExecutionsWithTestPlan: xray_get_test_executions_with_test_plan
+  updateTestPlanTestExecutions: xray_update_test_plan_test_executions
+  deleteTestExecutionFromTestPlan: xray_delete_test_execution_from_test_plan
+  listTestTestPlans: xray_list_test_test_plans
+  getTestRepositoryFolderHierarchy: xray_get_test_repository_folder_hierarchy
+  createTestRepositoryFolder: xray_create_test_repository_folder
+  getTestRepositoryFolder: xray_get_test_repository_folder
+  updateTestRepositoryFolder: xray_update_test_repository_folder
+  deleteTestRepositoryFolder: xray_delete_test_repository_folder
+  getFolderTests: xray_get_folder_tests
+  addTestsToFolder: xray_add_tests_to_folder
+  importXrayJsonResults: xray_import_xray_json_results
+  importCucumberResults: xray_import_cucumber_results
+  importBehaveResults: xray_import_behave_results
+  importJunitResults: xray_import_junit_results
+  importTestngResults: xray_import_testng_results
+  importNunitResults: xray_import_nunit_results
+  importRobotResults: xray_import_robot_results
+  listTestRuns: xray_list_test_runs
+  importCucumberTestsAndBackgroundFromAFeature: xray_import_cucumber_tests_and_background_from_a_feature
+  getCustomFieldsForTestSteps: xray_get_custom_fields_for_test_steps
+  getCustomFieldsForTestRuns: xray_get_custom_fields_for_test_runs
+  getTestStepStatuses: xray_get_test_step_statuses
+  getTestStatuses: xray_get_test_statuses
+  getTestRunIterations: xray_get_test_run_iterations
+  createTestRunIteration: xray_create_test_run_iteration
+  getTestRunIteration: xray_get_test_run_iteration
+  updateTestRunIteration: xray_update_test_run_iteration
+  deleteTestRunIteration: xray_delete_test_run_iteration
+  getTestRunIterationStep: xray_get_test_run_iteration_step
+  updateTestRunIterationStep: xray_update_test_run_iteration_step
+  exportTestDatasets: xray_export_test_datasets
+  importTestDatasets: xray_import_test_datasets
+  resetTestRunStatuses: xray_reset_test_run_statuses
+  resetRequirementStatuses: xray_reset_requirement_statuses
