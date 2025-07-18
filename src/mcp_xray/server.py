@@ -1,35 +1,46 @@
+import logging
+
 from fastmcp import FastMCP
 from fastmcp.server.openapi import MCPType, RouteMap
 
-from .config import get_xray_config
-from .utils import DataReader
+from .config import MCPConfiguration, get_app_settings
+from .utils import DataReader, PydanticValidator
 from .xray import XrayClient
+
+logger = logging.getLogger("mcp-xray")
 
 
 def create_mcp() -> FastMCP:
     """Create a FastMCP app"""
 
-    # Initialize the Xray configuration
-    xray_config = get_xray_config()
+    # Initialize the application settings
+    settings = get_app_settings()
 
     # Initialize the Xray client
-    xray_client = XrayClient.from_config(xray_config)
+    xray_client = XrayClient.from_config(settings)
 
-    # Initialize the DataReader
-    dl_manager = DataReader()
-
+    data_reader = DataReader()
     # Load OpenAPI spec from either URL or file path
-    openapi_spec = dl_manager.load_from(xray_config.openapi_spec)
+    openapi_spec = data_reader.load_from(settings.openapi_spec)
+    # If configuration file is provided, load it
+    mcp_config: MCPConfiguration = (
+        data_reader.load_from(settings.config_file, validator=PydanticValidator(MCPConfiguration))
+        if settings.config_file
+        # If no values are provided, use default empty configuration
+        else MCPConfiguration()
+    )
 
-    # If MCP names mapping file is provided, load it
-    mcp_names_filepath = xray_config.mcp_names_file
-    mcp_names = dl_manager.load_from(mcp_names_filepath) if mcp_names_filepath else None
+    if settings.read_only and mcp_config.route_maps:
+        logger.warning(
+            "Read-only mode is ENABLED, but 'route_maps' are defined in the configuration file "
+            f"({settings.config_file}). Configuration route maps will take precedence."
+        )
 
-    # TODO: Add RouteMapsBuilder in future to handle different filtering flows
+    # TODO: Revisit this eventually, keep it for compatibility '--read-only' flag for now
     route_maps: list[RouteMap] | None = (
         [RouteMap(methods=["POST", "PUT", "DELETE"], mcp_type=MCPType.EXCLUDE)]
-        if xray_config.read_only
-        else None
+        if settings.read_only and not mcp_config.route_maps
+        else mcp_config.route_maps
     )
 
     # Create the FastMCP application
@@ -38,7 +49,7 @@ def create_mcp() -> FastMCP:
         client=xray_client.client,  # Pass the underlying httpx.AsyncClient
         route_maps=route_maps,
         openapi_spec=openapi_spec,
-        mcp_names=mcp_names,
+        mcp_names=mcp_config.mcp_names,
     )
 
     return mcp_app

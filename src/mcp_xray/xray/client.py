@@ -2,7 +2,7 @@ import logging
 
 import httpx
 
-from ..config import XrayConfig
+from ..config import AppSettings
 
 # Configure logging
 logger = logging.getLogger("mcp-xray")
@@ -15,7 +15,7 @@ class XrayClient:
         self._client = client
 
     @classmethod
-    def from_config(cls, config: XrayConfig) -> "XrayClient":
+    def from_config(cls, config: AppSettings) -> "XrayClient":
         """Create an XrayAsyncClient from config."""
         if config.auth_type == "pat":
             if not config.personal_token:
