@@ -3,21 +3,14 @@ from pathlib import Path
 from typing import Any, Protocol
 from urllib.parse import urlparse
 
-import httpx
 import yaml
-from pydantic import BaseModel
+
+from .fetchers import ContentFetcher, FileContentFetcher, HttpContentFetcher
+from .validators import DataValidator, NoOpValidator
 
 # Type aliases
 type Extension = str
 type Scheme = str
-
-
-class ContentFetcher(Protocol):
-    """Protocol for fetching content from different sources."""
-
-    def fetch(self, location: str) -> str:
-        """Fetch content from the given location."""
-        ...
 
 
 class ContentReader(Protocol):
@@ -26,42 +19,6 @@ class ContentReader(Protocol):
     def read_content(self, content: str) -> dict[str, Any]:
         """Parse content string into a dictionary."""
         ...
-
-
-class DataValidator(Protocol):
-    """Protocol for validating loaded data."""
-
-    def validate(self, data: dict[str, Any]) -> Any:
-        """Validate and potentially transform the data."""
-        ...
-
-
-class FileContentFetcher:
-    """Fetches content from a local file."""
-
-    def fetch(self, location: str) -> str:
-        path = Path(location)
-        if not path.is_file():
-            msg = f"File does not exist: {location}"
-            raise FileNotFoundError(msg)
-        return path.read_text(encoding="utf-8")
-
-
-class HttpContentFetcher:
-    """Fetches content from HTTP/HTTPS URLs."""
-
-    def __init__(self, timeout: float = 30.0) -> None:
-        self.timeout = timeout
-
-    def fetch(self, location: str) -> str:
-        try:
-            with httpx.Client(timeout=self.timeout) as client:
-                response = client.get(location)
-                response.raise_for_status()
-                return response.text
-        except httpx.HTTPError as e:
-            msg = f"Failed to fetch from {location}: {e}"
-            raise ConnectionError(msg) from e
 
 
 class JsonReader:
@@ -83,27 +40,6 @@ class YamlReader:
             return yaml.safe_load(content)
         except yaml.YAMLError as e:
             msg = f"Invalid YAML content: {e}"
-            raise ValueError(msg) from e
-
-
-class NoOpValidator:
-    """Validator that returns data unchanged."""
-
-    def validate(self, data: dict[str, Any]) -> dict[str, Any]:
-        return data
-
-
-class PydanticValidator:
-    """Validator for Pydantic BaseModel classes."""
-
-    def __init__(self, model_class: type[BaseModel]) -> None:
-        self.model_class = model_class
-
-    def validate(self, data: dict[str, Any]) -> BaseModel:
-        try:
-            return self.model_class.model_validate(data)
-        except Exception as e:
-            msg = f"Pydantic validation failed: {e}"
             raise ValueError(msg) from e
 
 

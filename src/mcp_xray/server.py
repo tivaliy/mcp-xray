@@ -3,8 +3,9 @@ import logging
 from fastmcp import FastMCP
 from fastmcp.server.openapi import MCPType, RouteMap
 
-from .config import MCPConfiguration, get_app_settings
-from .utils import DataReader, PydanticValidator
+from .core import MCPConfiguration, get_app_settings
+from .io import DataReader
+from .io.validators import PydanticValidator
 from .xray import XrayClient
 
 logger = logging.getLogger("mcp-xray")
