@@ -181,7 +181,12 @@ class DataReader:
             ValueError: If the content cannot be parsed
         """
         parsed = urlparse(file_location)
-        scheme = parsed.scheme if parsed.scheme else self.DEFAULT_SCHEMA
+        scheme = (
+            parsed.scheme
+            # If schema is empty or not supported, treat it as a local file
+            if parsed.scheme in self._fetcher_classes
+            else self.DEFAULT_SCHEMA
+        )
 
         # Handle both URL paths and local file paths
         path = parsed.path if parsed.scheme else file_location
