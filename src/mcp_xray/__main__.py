@@ -7,8 +7,8 @@ from typing import Any
 import click
 
 from mcp_xray import __version__
+from mcp_xray.core import setup_logging
 from mcp_xray.server import create_mcp
-from mcp_xray.utils import setup_logging
 
 
 @click.version_option(version=__version__, prog_name="mcp-xray")
