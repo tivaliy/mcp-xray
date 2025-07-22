@@ -141,7 +141,7 @@
         }
       ]
     },
-    "/test/{testKey}/step/{stepId}": {
+    "/test/{testKey}/steps/{stepId}": {
       "get": {
         "tags": ["test step"],
         "summary": "Get test step",
@@ -217,13 +217,6 @@
         "summary": "Delete test step",
         "description": "Deletes a test step given the test key and the step id.",
         "operationId": "deleteTestStep",
-        "requestBody": {
-          "content": {
-            "text/plain": {
-              "examples": {"delete a step, by id": {"value": ""}}
-            }
-          }
-        },
         "responses": {"200": {"description": "Test step successfully deleted. The specified test step has been removed from the test issue and all associated attachments have been cleaned up."}}
       },
       "parameters": [
@@ -231,7 +224,7 @@
         {"name": "stepId", "in": "path", "required": true, "description": "The unique identifier of the test step", "schema": {"type": "string", "example": "67890"}}
       ]
     },
-    "/test/{testKey}/step/{stepId}/attachments": {
+    "/test/{testKey}/steps/{stepId}/attachments": {
       "get": {
         "tags": [
           "test step"
@@ -268,7 +261,7 @@
           }
         ]
     },
-    "/test/{testKey}/step/{stepId}/attachment/{attachmentId}": {
+    "/test/{testKey}/steps/{stepId}/attachment/{attachmentId}": {
       "delete": {
         "tags": [
           "test step"
@@ -276,17 +269,6 @@
         "summary": "Delete test step attachment",
         "description": "Deletes a test step attachment, given the test key and step and attachment ids.",
         "operationId": "deleteTestStepAttachment",
-        "requestBody": {
-          "content": {
-            "text/plain": {
-              "examples": {
-                "delete a step attachment, by id": {
-                  "value": ""
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Test step attachment successfully deleted. The specified attachment has been removed from the test step."
@@ -754,7 +736,7 @@
         }
       ]
     },
-    "/testexec/{testExecKey}/test/{testKey}": {
+    "/testexec/{testExecutionKey}/test/{testKey}": {
       "delete": {
         "tags": ["test execution"],
         "summary": "Remove test from test execution",
@@ -762,7 +744,7 @@
         "operationId": "deleteTestFromTestExecution",
         "parameters": [
           {
-            "name": "testExecKey",
+            "name": "testExecutionKey",
             "in": "path",
             "required": true,
             "description": "The key of the test execution issue",
@@ -859,7 +841,7 @@
                 }
               },
               "examples": {
-                "/testrun/:id": {
+                "update test run": {
                   "value": {
                     "comment": "failed",
                     "status": "FAIL"
@@ -946,38 +928,6 @@
         "summary": "List test run defects",
         "description": "Retrieves all defect issues (bugs, issues) associated with a specific Test Run. Returns a comprehensive list of defects linked to the test run, providing traceability between failed test executions and their related issues.",
         "operationId": "getTestRunDefects",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "contentType": {
-                    "type": "string",
-                    "example": "text/plain"
-                  },
-                  "data": {
-                    "type": "string",
-                    "example": "ZHVtbXkgY29udGVudA=="
-                  },
-                  "filename": {
-                    "type": "string",
-                    "example": "dummy.txt"
-                  }
-                }
-              },
-              "examples": {
-                "get test run defects": {
-                  "value": {
-                    "contentType": "text/plain",
-                    "data": "ZHVtbXkgY29udGVudA==",
-                    "filename": "dummy.txt"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Test Run defects successfully retrieved. Returns a comprehensive list of all defect issues associated with the Test Run, including defect details, link information, and traceability metadata."
@@ -1041,38 +991,6 @@
         "summary": "Unlink defect from test run",
         "description": "Removes the association between a defect issue and a Test Run. This operation breaks the traceability link without affecting the defect issue itself, maintaining clean defect tracking records.",
         "operationId": "unlinkDefectsFromTestRun",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "contentType": {
-                    "type": "string",
-                    "example": "text/plain"
-                  },
-                  "data": {
-                    "type": "string",
-                    "example": "ZHVtbXkgY29udGVudA=="
-                  },
-                  "filename": {
-                    "type": "string",
-                    "example": "dummy.txt"
-                  }
-                }
-              },
-              "examples": {
-                "remove/unlink defects from test run": {
-                  "value": {
-                    "contentType": "text/plain",
-                    "data": "ZHVtbXkgY29udGVudA==",
-                    "filename": "dummy.txt"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Defect successfully unlinked from Test Run. The association between the specified defect and Test Run has been removed, while preserving the defect issue itself."
@@ -1110,38 +1028,6 @@
         "summary": "List test run attachments",
         "description": "Retrieves all evidence and attachment files linked to a specific Test Run. Returns a comprehensive list of attachments including file metadata, content types, and attachment identifiers.",
         "operationId": "getTestRunAttachments",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "contentType": {
-                    "type": "string",
-                    "example": "text/plain"
-                  },
-                  "data": {
-                    "type": "string",
-                    "example": "ZHVtbXkgY29udGVudA=="
-                  },
-                  "filename": {
-                    "type": "string",
-                    "example": "dummy.txt"
-                  }
-                }
-              },
-              "examples": {
-                "get all evidence/attachment(s) linked to the test run": {
-                  "value": {
-                    "contentType": "text/plain",
-                    "data": "ZHVtbXkgY29udGVudA==",
-                    "filename": "dummy.txt"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Test Run attachments successfully retrieved. Returns a comprehensive list of all evidence and attachment files linked to the Test Run, including file metadata, content types, and download links."
@@ -1200,17 +1086,6 @@
         "summary": "Delete test run attachment by name",
         "description": "Removes a specific attachment from a Test Run by filename. This operation permanently deletes the evidence file and its association with the Test Run.",
         "operationId": "deleteTestRunAttachmentByName",
-        "requestBody": {
-          "content": {
-            "text/plain": {
-              "examples": {
-                "delete evidence/attachment by name": {
-                  "value": "dummy.txt"
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Attachment successfully deleted from Test Run. The specified evidence file has been permanently removed from the Test Run and file storage."
@@ -1238,38 +1113,6 @@
         "summary": "Delete test run attachment",
         "description": "Removes a specific attachment from a Test Run by attachment ID. This operation permanently deletes the evidence file and its association with the Test Run.",
         "operationId": "deleteTestRunAttachment",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "contentType": {
-                    "type": "string",
-                    "example": "text/plain"
-                  },
-                  "data": {
-                    "type": "string",
-                    "example": "ZHVtbXkgY29udGVudA=="
-                  },
-                  "filename": {
-                    "type": "string",
-                    "example": "dummy.txt"
-                  }
-                }
-              },
-              "examples": {
-                "delete evidence/attachment by id": {
-                  "value": {
-                    "contentType": "text/plain",
-                    "data": "ZHVtbXkgY29udGVudA==",
-                    "filename": "dummy.txt"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Attachment successfully deleted from Test Run. The specified evidence file has been permanently removed from the Test Run and file storage using the attachment ID."
@@ -1633,17 +1476,6 @@
         "summary": "List test run step attachments",
         "description": "Retrieves all evidence and attachment files linked to a specific test step within a Test Run. Returns step-level evidence including screenshots, logs, and documentation files.",
         "operationId": "getTestRunStepAttachments",
-        "requestBody": {
-          "content": {
-            "text/plain": {
-              "examples": {
-                "get all evidence/attachment(s) linked to the test run step": {
-                  "value": ""
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": ""
@@ -1702,17 +1534,6 @@
         "summary": "Delete test run step attachment by name",
         "description": "Removes a specific attachment from a test step within a Test Run by filename. This operation permanently deletes the step-level evidence file and its association.",
         "operationId": "deleteTestRunStepAttachmentByName",
-        "requestBody": {
-          "content": {
-            "text/plain": {
-              "examples": {
-                "delete evidence/attachment in test run step by name": {
-                  "value": "dummy.txt"
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": ""
@@ -1750,17 +1571,6 @@
         "summary": "Delete test run step attachment",
         "description": "Removes a specific attachment from a test step within a Test Run by attachment ID. This operation permanently deletes the step-level evidence file and its association.",
         "operationId": "deleteTestRunStepAttachment",
-        "requestBody": {
-          "content": {
-            "text/plain": {
-              "examples": {
-                "delete evidence/attachment in test run step by id": {
-                  "value": ""
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": ""
@@ -1894,7 +1704,7 @@
                 }
               },
               "examples": {
-                "/testrun/:testRunId/customfield/:customFieldId": {
+                "update test run custom field": {
                   "value": {
                     "value": "<string>"
                   }
@@ -2116,7 +1926,7 @@
         }
       }
     },
-    "/testplan/{testPlanKey}/testexecution/{testExecKey}": {
+    "/testplan/{testPlanKey}/testexecution/{testExecutionKey}": {
       "delete": {
         "tags": ["test plan"],
         "summary": "Remove test execution from test plan",
@@ -2131,7 +1941,7 @@
             "schema": { "type": "string", "example": "PLAN-123" }
           },
           {
-            "name": "testExecKey",
+            "name": "testExecutionKey",
             "in": "path",
             "required": true,
             "description": "The key of the test execution to remove",
@@ -2251,30 +2061,6 @@
           }
         }
       },
-      "parameters": [
-        {
-          "name": "projectKey",
-          "in": "path",
-          "required": true,
-          "description": "The key of the Jira project",
-          "schema": {
-            "type": "string",
-            "example": "MYPROJ"
-          }
-        },
-        {
-          "name": "folderId",
-          "in": "path",
-          "required": true,
-          "description": "The unique identifier of the test repository folder",
-          "schema": {
-            "type": "string",
-            "example": "1001"
-          }
-        }
-      ]
-    },
-    "/testrepository/{projectKey}/folders/{updateFolderId}": {
       "put": {
         "tags": [
           "test repository"
@@ -2317,28 +2103,6 @@
         "summary": "Delete test repository folder",
         "description": "Removes a folder from the test repository permanently. This operation deletes the specified folder and all its content, including subfolders and test associations. Use with caution as this action cannot be undone. Returns success confirmation after the folder is deleted.",
         "operationId": "deleteTestRepositoryFolder",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Postman X"
-                  }
-                }
-              },
-              "examples": {
-                "delete a test repository's folder by id": {
-                  "value": {
-                    "name": "Postman X"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": ""
@@ -2357,18 +2121,18 @@
           }
         },
         {
-          "name": "updateFolderId",
+          "name": "folderId",
           "in": "path",
           "required": true,
-          "description": "The unique identifier of the test repository folder to update",
+          "description": "The unique identifier of the test repository folder",
           "schema": {
             "type": "string",
-            "example": "2002"
+            "example": "1001"
           }
         }
       ]
     },
-    "/testrepository/{projectKey}/folders/{testFolderId}/tests": {
+    "/testrepository/{projectKey}/folders/{folderId}/tests": {
       "get": {
         "tags": [
           "test repository"
@@ -2382,30 +2146,6 @@
           }
         }
       },
-      "parameters": [
-        {
-          "name": "projectKey",
-          "in": "path",
-          "required": true,
-          "description": "The key of the Jira project",
-          "schema": {
-            "type": "string",
-            "example": "MYPROJ"
-          }
-        },
-        {
-          "name": "testFolderId",
-          "in": "path",
-          "required": true,
-          "description": "The unique identifier of the test repository folder",
-          "schema": {
-            "type": "string",
-            "example": "1003"
-          }
-        }
-      ]
-    },
-    "/testrepository/{projectKey}/folders/{manageFolderId}/tests": {
       "put": {
         "tags": [
           "test repository"
@@ -2419,15 +2159,21 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "add": {
+                    "type": "array",
+                    "description": "List of test keys to add to the folder",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["TEST-123", "TEST-124"]
+                  },
                   "remove": {
                     "type": "array",
+                    "description": "List of test keys to remove from the folder",
                     "items": {
-                      "type": "string",
-                      "example": "TEST-456"
+                      "type": "string"
                     },
-                    "example": [
-                      "TEST-456"
-                    ]
+                    "example": ["TEST-125"]
                   }
                 }
               },
@@ -2468,13 +2214,13 @@
           }
         },
         {
-          "name": "manageFolderId",
+          "name": "folderId",
           "in": "path",
           "required": true,
-          "description": "The unique identifier of the test repository folder to manage",
+          "description": "The unique identifier of the test repository folder",
           "schema": {
             "type": "string",
-            "example": "1004"
+            "example": "1003"
           }
         }
       ]
@@ -5293,7 +5039,7 @@
         "operationId": "listTestRuns",
         "parameters": [
           {
-            "name": "testExecKey",
+            "name": "testExecutionKey",
             "in": "query",
             "description": "The Test Execution issue key.",
             "schema": {
@@ -5304,7 +5050,7 @@
           {
             "name": "testKey",
             "in": "query",
-            "description": "The Test issue key (can only be used with testExecKey).",
+            "description": "The Test issue key (can only be used with testExecutionKey).",
             "schema": {
               "type": "string",
               "example": "TEST-123"
@@ -5766,6 +5512,132 @@
         "responses": {
           "200": {
             "description": "Iteration step execution results successfully updated. Returns the updated step with new status, actual results, and evidence attachments."
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "testRunId",
+          "in": "path",
+          "required": true,
+          "description": "The unique identifier of the test run",
+          "schema": {
+            "type": "string",
+            "example": "10001"
+          }
+        },
+        {
+          "name": "iterationId",
+          "in": "path",
+          "required": true,
+          "description": "The unique identifier of the iteration",
+          "schema": {
+            "type": "string",
+            "example": "20001"
+          }
+        },
+        {
+          "name": "stepId",
+          "in": "path",
+          "required": true,
+          "description": "The unique identifier of the test step",
+          "schema": {
+            "type": "string",
+            "example": "30001"
+          }
+        }
+      ]
+    },
+    "/testrun/{testRunId}/iteration/{iterationId}/step": {
+      "get": {
+        "tags": [
+          "test run"
+        ],
+        "summary": "Get all test step results for iteration",
+        "description": "Retrieves all test step results for a specific Test Run iteration. Returns comprehensive step execution data including status, actual results, evidence attachments, and parameter substitutions used during iteration execution.",
+        "operationId": "getTestRunIterationSteps",
+        "responses": {
+          "200": {
+            "description": "Test Run iteration steps successfully retrieved. Returns a comprehensive list of all step execution results for the iteration, including step status, evidence attachments, comments, and detailed execution information."
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "testRunId",
+          "in": "path",
+          "required": true,
+          "description": "The unique identifier of the test run",
+          "schema": {
+            "type": "string",
+            "example": "10001"
+          }
+        },
+        {
+          "name": "iterationId",
+          "in": "path",
+          "required": true,
+          "description": "The unique identifier of the iteration",
+          "schema": {
+            "type": "string",
+            "example": "20001"
+          }
+        }
+      ]
+    },
+    "/testrun/{testRunId}/iteration/{iterationId}/step/{stepId}/status": {
+      "get": {
+        "tags": [
+          "test run"
+        ],
+        "summary": "Get iteration step status",
+        "description": "Retrieves the execution status of a specific test step within a Test Run iteration. Returns the current status value (PASS, FAIL, EXECUTING, etc.) and related execution metadata.",
+        "operationId": "getTestRunIterationStepStatus",
+        "responses": {
+          "200": {
+            "description": "Iteration step status successfully retrieved. Returns the current execution status of the test step with related metadata including timestamps and execution context."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "test run"
+        ],
+        "summary": "Update iteration step status",
+        "description": "Updates the execution status of a specific test step within a Test Run iteration. Allows setting step status with optional comment and timing information for precise iteration execution tracking.",
+        "operationId": "updateTestRunIterationStepStatus",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": ["PASS", "FAIL", "TODO", "EXECUTING"],
+                    "description": "New execution status for the step",
+                    "example": "PASS"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "description": "Optional comment about the status change",
+                    "example": "Step completed successfully in iteration"
+                  },
+                  "executedOn": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Timestamp when the step was executed",
+                    "example": "2024-01-15T10:30:00Z"
+                  }
+                },
+                "required": ["status"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Iteration step status successfully updated. Returns the updated status information with timestamps and execution metadata."
           }
         }
       },
