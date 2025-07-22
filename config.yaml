@@ -91,8 +91,9 @@ mcp_names:
   getTestRunIteration: xray_get_test_run_iteration
   updateTestRunIteration: xray_update_test_run_iteration
   deleteTestRunIteration: xray_delete_test_run_iteration
-  getTestRunIterationStep: xray_get_test_run_iteration_step
-  updateTestRunIterationStep: xray_update_test_run_iteration_step
+  getTestRunIterationStepStatus: xray_get_test_run_iteration_step_status
+  updateTestRunIterationStepStatus: xray_update_test_run_iteration_step_status
+  getTestRunIterationSteps: xray_get_test_run_iteration_steps
   exportTestDatasets: xray_export_test_datasets
   importTestDatasets: xray_import_test_datasets
   resetTestRunStatuses: xray_reset_test_run_statuses
