@@ -414,8 +414,20 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "add": {
+                    "type": "array",
+                    "description": "List of test keys to associate with the precondition",
+                    "items": {
+                      "type": "string",
+                      "example": "TEST-123"
+                    },
+                    "example": [
+                      "TEST-123"
+                    ]
+                  },
                   "remove": {
                     "type": "array",
+                    "description": "List of test keys to disassociate from the precondition",
                     "items": {
                       "type": "string",
                       "example": "TEST-123"
@@ -550,8 +562,20 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "add": {
+                    "type": "array",
+                    "description": "List of test keys to associate with the test set",
+                    "items": {
+                      "type": "string",
+                      "example": "TEST-123"
+                    },
+                    "example": [
+                      "TEST-123"
+                    ]
+                  },
                   "remove": {
                     "type": "array",
+                    "description": "List of test keys to disassociate from the test set",
                     "items": {
                       "type": "string",
                       "example": "TEST-123"
@@ -686,8 +710,20 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "add": {
+                    "type": "array",
+                    "description": "List of test keys to associate with the test execution",
+                    "items": {
+                      "type": "string",
+                      "example": "TEST-456"
+                    },
+                    "example": [
+                      "TEST-456"
+                    ]
+                  },
                   "remove": {
                     "type": "array",
+                    "description": "List of test keys to disassociate from the test execution",
                     "items": {
                       "type": "string",
                       "example": "TEST-456"
@@ -1769,8 +1805,20 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "add": {
+                    "type": "array",
+                    "description": "List of test keys to associate with the test plan",
+                    "items": {
+                      "type": "string",
+                      "example": "TEST-123"
+                    },
+                    "example": [
+                      "TEST-123"
+                    ]
+                  },
                   "remove": {
                     "type": "array",
+                    "description": "List of test keys to disassociate from the test plan",
                     "items": {
                       "type": "string",
                       "example": "TEST-123"
