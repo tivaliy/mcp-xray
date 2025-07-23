@@ -324,7 +324,25 @@
               "type": "string",
               "example": "TEST-123;TEST-456;TEST-789"
             }
-          }
+          },
+          {
+           "name": "filter",
+           "in": "query",
+           "schema": {
+             "type": "string",
+             "example": "12345"
+           },
+           "description": "ID of a saved filter to use for selecting tests."
+         },
+         {
+           "name": "jql",
+           "in": "query",
+           "schema": {
+             "type": "string",
+             "example": "project = XRAY AND issuetype = Test"
+           },
+           "description": "JQL query to filter tests. Must be URL encoded when used in requests. Can be combined with other parameters."
+         }
         ],
         "responses": {
           "200": {
