@@ -1,0 +1,14 @@
+# Sample MCP configuration for testing
+mcp_names:
+  getTestById: get_test_by_id
+  listTests: list_tests
+  createTest: create_test
+  updateTest: update_test
+  deleteTest: delete_test
+
+route_maps:
+  - methods:
+      - POST
+      - PUT
+      - DELETE
+    mcp_type: EXCLUDE

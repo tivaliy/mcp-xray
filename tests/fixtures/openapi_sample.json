@@ -1,0 +1,115 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Xray Test API",
+    "version": "2.0.0",
+    "description": "Sample OpenAPI spec for testing"
+  },
+  "servers": [
+    {
+      "url": "https://xray.example.com/rest/raven/2.0"
+    }
+  ],
+  "paths": {
+    "/test/{id}": {
+      "get": {
+        "operationId": "getTestById",
+        "summary": "Get a test by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "Test not found"
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateTest",
+        "summary": "Update a test",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Test updated"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteTest",
+        "summary": "Delete a test",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Test deleted"
+          }
+        }
+      }
+    },
+    "/tests": {
+      "get": {
+        "operationId": "listTests",
+        "summary": "List all tests",
+        "responses": {
+          "200": {
+            "description": "List of tests"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createTest",
+        "summary": "Create a new test",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Test created"
+          }
+        }
+      }
+    }
+  }
+}

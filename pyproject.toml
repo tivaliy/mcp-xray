@@ -31,6 +31,12 @@ dev = [
     "pre-commit>=4.2.0",
     "ruff>=0.12.2",
 ]
+test = [
+    "pytest>=8.3.0",
+    "pytest-cov>=6.0.0",
+    "pytest-asyncio>=0.24.0",
+    "respx>=0.22.0",
+]
 
 [tool.ruff]
 exclude = [
@@ -67,6 +73,14 @@ fixable = ["ALL"]
 unfixable = []
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+    "S101",   # Allow assert in tests
+    "S105",   # Allow hardcoded passwords in tests (test fixtures)
+    "S106",   # Allow hardcoded password arguments in tests
+    "ANN",    # No type annotations required for tests
+]
+
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
@@ -76,6 +90,13 @@ line-ending = "auto"
 [tool.mypy]
 python_version = "3.12"
 
+[[tool.mypy.overrides]]
+module = "tests.*"
+disable_error_code = ["arg-type", "assignment"]
+
+[tool.pyright]
+exclude = ["tests"]
+
 [tool.hatch.version]
 source = "uv-dynamic-versioning"
 
@@ -84,3 +105,20 @@ vcs = "git"
 style = "pep440"
 bump = true
 fallback-version = "0.0.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["src/mcp_xray"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]

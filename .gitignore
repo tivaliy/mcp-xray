@@ -6,6 +6,10 @@ dist/
 wheels/
 *.egg-info
 
+# Exclude coverage files
+.coverage
+htmlcov/
+
 # Exclude .idea files
 .idea/
 
