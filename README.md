@@ -26,6 +26,31 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
 - Xray API Personal Access Token
 - OpenAPI spec file for Xray
 
+## Installation
+
+### Using uvx (recommended)
+
+The easiest way to run mcp-xray is using [uvx](https://docs.astral.sh/uv/guides/tools/):
+
+```bash
+uvx mcp-xray --help
+```
+
+### Using pip
+
+```bash
+pip install mcp-xray
+```
+
+### From source
+
+```bash
+git clone https://github.com/tivaliy/mcp-xray.git
+cd mcp-xray
+uv sync
+uv run mcp-xray --help
+```
+
 ## Quick Start Guide
 
 1. **Obtain a Personal Access Token (PAT) for Xray**
@@ -46,7 +71,7 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
    - Open the project in VS Code.
    - Use the provided below example settings to configure the server.
    - When you start the server via the VS Code MCP extension or command palette, you will be prompted for your Xray API token securely.
-   - Example configuration (see `.vscode/mcp.json.example`):
+   - Example configuration using PyPI release (see `.vscode/mcp.json.example`):
      ```json
      {
          "inputs": [
@@ -61,8 +86,6 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
              "mcp-xray": {
                  "command": "uvx",
                  "args": [
-                     "--from",
-                     "git+https://github.com/tivaliy/mcp-xray@main",
                      "mcp-xray",
                      "--xray-url",
                      "https://your-domain.example.com/jira/rest/raven/2.0/api",
@@ -78,6 +101,14 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
          }
      }
      ```
+   - Alternatively, to use a specific version or install from git:
+     ```bash
+     # Specific version
+     uvx mcp-xray@0.1.0 --help
+
+     # From git (latest main branch)
+     uvx --from git+https://github.com/tivaliy/mcp-xray@main mcp-xray --help
+     ```
    - Adjust the `--xray-url`, `--xray-openapi-spec`, and `--config-file` as needed for the environment.
    - The `--xray-openapi-spec` option accepts either a local file path or a URL.
    - The optional `--config-file` parameter must point to the configuration file (see `config.yaml` as an example).
@@ -86,7 +117,6 @@ Here is a Clarification on Xray APIs usage for Xray Server+DC or Xray Cloud: [Xr
      - [Component Names documentation](https://gofastmcp.com/integrations/openapi#component-names)
    - The optional `--read-only` flag starts the server in read-only mode, blocking all write operations (POST, PUT, DELETE) for safe, non-destructive access.
      - **Note:** If both `--read-only` and `route_maps` are set in the config file, `route_maps` takes precedence and customizes the allowed/disallowed methods.
-   - Use `uvx` with `--from` flag and appropriate github link as a reference with the commit hash or branch name, since no PyPI package is available yet.
    - The Xray personal access token will be prompted interactively and not stored in plain text.
 
 ## OpenAPI Schema: Source, Limitations, and Maintenance
